@@ -26,7 +26,7 @@ import racePhoto22 from '../assets/photos/race-day/photo22.png';
 import racePhoto23 from '../assets/photos/race-day/photo23.png';
 import racePhoto24 from '../assets/photos/race-day/photo24.png';
 import racePhoto25 from '../assets/photos/race-day/photo25.png';
-import hracePhoto26 from '../assets/photos/race-day/photo26.png';
+import racePhoto26 from '../assets/photos/race-day/photo26.png';
 import racePhoto27 from '../assets/photos/race-day/photo27.png';
 import racePhoto28 from '../assets/photos/race-day/photo28.png';
 import racePhoto29 from '../assets/photos/race-day/photo29.png';
