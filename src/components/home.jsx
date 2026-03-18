@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import './home.css';
 import marathonLogo from '../assets/marathon-logo.png';
-import runnersLogo from '../assets/runners-logo.png';
+import runnersLogo  from '../assets/runners-logo.png';
+import novaraceLogo from '../assets/novarace-logo.png';
 import racePhoto1  from '../assets/photos/race-day/photo1.png';
 import racePhoto2  from '../assets/photos/race-day/photo2.png';
 import racePhoto3  from '../assets/photos/race-day/photo3.png';
@@ -33,6 +34,10 @@ import racePhoto29 from '../assets/photos/race-day/photo29.png';
 import racePhoto30 from '../assets/photos/race-day/photo30.png';
 import racePhoto31 from '../assets/photos/race-day/photo31.png';
 import racePhoto33 from '../assets/photos/race-day/photo33.png';
+import racePhoto34 from '../assets/photos/race-day/photo34.jpg';
+import racePhoto35 from '../assets/photos/race-day/photo35.png';
+import racePhoto36 from '../assets/photos/race-day/photo36.png';
+import racePhoto37 from '../assets/photos/race-day/photo37.jpg';
 
 const prizeData = {
   full: [
@@ -97,6 +102,27 @@ const Home = () => {
   const [prizeTab, setPrizeTab] = useState('full');
   const [activeBadge, setActiveBadge] = useState(null);
 
+  /* ── Results ── */
+  const [results, setResults]           = useState([]);
+  const [resultsLoading, setResultsLoading] = useState(true);
+  const [resultsTab, setResultsTab]     = useState(0);
+
+  useEffect(() => {
+    fetch('https://api.novarace.in/api/events/getresults-search?event_slug=sivagiri-marathon-2025')
+      .then(r => r.json())
+      .then(data => {
+        const filtered = data.filter(cat => !['1KM','3KM'].includes(cat.race.toUpperCase().trim()));
+        setResults(filtered);
+        setResultsLoading(false);
+      })
+      .catch(() => setResultsLoading(false));
+  }, []);
+
+  const getTop3 = (data, gender) =>
+    data.filter(r => r.Gender === gender).slice(0, 3);
+
+  const medalLabel = ['🥇 1st', '🥈 2nd', '🥉 3rd'];
+
   useEffect(() => {
     const calc = () => {
       const raceDate = new Date('2026-06-21T04:30:00+05:30');
@@ -149,7 +175,7 @@ const Home = () => {
     racePhoto16, racePhoto17, racePhoto18, racePhoto20,
     racePhoto21, racePhoto22, racePhoto23, racePhoto24, racePhoto25,
     racePhoto26, racePhoto27, racePhoto28, racePhoto29, racePhoto30,
-    racePhoto31, racePhoto33,
+    racePhoto31, racePhoto33, racePhoto33, racePhoto34, racePhoto35, racePhoto36, racePhoto37,
   ];
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIdx,  setLightboxIdx]  = useState(0);
@@ -376,15 +402,18 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="about-visual">
-              <div className="about-video-wrap">
-                <iframe
-                  src="https://www.youtube.com/embed/u7z6ubBWuhU"
-                  title="Watch Sivagiri 2025 · Race Highlights"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none', borderRadius: 'var(--radius-lg)' }}
-                />
+            <div className="about-visual about-quad">
+              <div className="about-img about-img-1">
+                <img src={racePhoto34} alt="Race Day" />
+              </div>
+              <div className="about-img about-img-2">
+                <img src={racePhoto35} alt="Start Line" />
+              </div>
+              <div className="about-img about-img-3">
+                <img src={racePhoto36} alt="Volunteers" />
+              </div>
+              <div className="about-img about-img-4">
+                <img src={racePhoto37} alt="Finish Line" />
               </div>
               <div className="about-badge">
                 <div className="about-badge-num">4</div>
@@ -599,7 +628,7 @@ const Home = () => {
       </section>
 
       {/* ── 9. PRIZES ── */}
-      <section className="section" id="prizes">
+     {/*  <section className="section" id="prizes">
         <div className="container">
           <div className="eyebrow">Compete &amp; Win</div>
           <h2 className="section-title">Prizes &amp; <em>Rewards</em></h2>
@@ -662,7 +691,14 @@ const Home = () => {
             <img src={runnersLogo} alt="Sivagiri Runners" className="owned-by-logo" />
           </div>
 
-          <div className="sponsors-tier">
+          <div className="race-partner-bar">
+            <span className="race-partner-label">Race Technology Partner</span>
+            <a href="https://www.novarace.in" target="_blank" rel="noopener noreferrer" className="race-partner-link">
+              <img src={novaraceLogo} alt="NovaRace" className="race-partner-logo" />
+            </a>
+          </div>
+
+          {/* <div className="sponsors-tier">
             {[
               { tier: 'Title Sponsor',        items: [{ name: 'Sivagiri Heritage Trust', extra: 'title-sp' }] },
               { tier: 'Powered By',           items: [{ name: 'Kerala Sports Council' }, { name: 'RunGear India' }] },
@@ -681,11 +717,110 @@ const Home = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
-      {/* ── 11. GALLERY ── */}
+      {/* ── 11. RESULTS ── */}
+      <section className="section results-bg" id="results">
+        <div className="container">
+          <div className="eyebrow">Sivagiri Marathon 2025</div>
+          <h2 className="section-title">Race <em>Results</em></h2>
+          <p className="section-sub">Top 3 podium finishers by category and gender.</p>
+
+          {resultsLoading ? (
+            <div className="results-loading">
+              <div className="results-spinner" />
+              <span>Loading results…</span>
+            </div>
+          ) : results.length === 0 ? (
+            <p style={{ color: 'var(--muted)', marginTop: 32 }}>Results not available.</p>
+          ) : (
+            <>
+              {/* Race distance tabs */}
+              <div className="results-tabs">
+                {results.map((cat, i) => (
+                  <button
+                    key={cat.race}
+                    className={`results-tab${resultsTab === i ? ' active' : ''}`}
+                    onClick={() => setResultsTab(i)}
+                  >
+                    {cat.race}
+                  </button>
+                ))}
+              </div>
+
+              {/* Age-category-wise cards */}
+              {results[resultsTab] && (() => {
+                const data = results[resultsTab].urlData;
+                const ageCats = ['Overall', ...Array.from(new Set(data.map(r => r.Category).filter(Boolean))).sort()];
+
+                return ageCats.map(cat => {
+                  const top3Men = cat === 'Overall'
+                    ? data.filter(r => r.Gender === 'Male').slice(0, 3)
+                    : data.filter(r => r.Gender === 'Male' && r.Category === cat).slice(0, 3);
+                  const top3Women = cat === 'Overall'
+                    ? data.filter(r => r.Gender === 'Female').slice(0, 3)
+                    : data.filter(r => r.Gender === 'Female' && r.Category === cat).slice(0, 3);
+
+                  if (!top3Men.length && !top3Women.length) return null;
+
+                  return (
+                    <div className="res-age-block" key={cat}>
+                      <div className="res-age-label">{cat}</div>
+                      <div className="res-cards-pair">
+                        {top3Men.length > 0 && (
+                          <div className="res-card">
+                            <div className="res-card-hdr">Men</div>
+                            {top3Men.map((r, i) => (
+                              <div className="res-row" key={r.Bib}>
+                                <div className={`res-rank res-rank-${i + 1}`}>{i + 1}</div>
+                                <div className="res-info">
+                                  <div className="res-name">{r.Name}</div>
+                                  <div className="res-bib">BIB {r.Bib}</div>
+                                </div>
+                                <div className="res-time">{r['Chip time']}</div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {top3Women.length > 0 && (
+                          <div className="res-card">
+                            <div className="res-card-hdr">Women</div>
+                            {top3Women.map((r, i) => (
+                              <div className="res-row" key={r.Bib}>
+                                <div className={`res-rank res-rank-${i + 1}`}>{i + 1}</div>
+                                <div className="res-info">
+                                  <div className="res-name">{r.Name}</div>
+                                  <div className="res-bib">BIB {r.Bib}</div>
+                                </div>
+                                <div className="res-time">{r['Chip time']}</div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                });
+              })()}
+
+              <div className="results-footer">
+                <a
+                  href={`https://www.novarace.in/results/sivagiri-marathon-2025`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
+                  View Full Results on novarace.in
+                </a>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* ── 12. GALLERY ── */}
       <section className="section" id="gallery">
         <div className="container">
           <div className="sec-header">
@@ -804,8 +939,14 @@ const Home = () => {
               <div className="org-name">Sivagiri Runners</div>
               <p className="org-desc">Sivagiri Runners is a grassroots running collective based in Varkala, Kerala — founded by a group of passionate runners who believed that the best running events are built by runners who understand what runners need. From choosing the perfect dawn start time to ensuring post-race Kerala sadya, every decision reflects that philosophy. The Sivagiri Marathon is their proudest achievement, growing year after year through word of mouth and community love.</p>
               <div className="org-socials">
-                {['IG', 'FB', 'ST', 'YT', 'WA'].map((s) => (
-                  <a href="#" className="social-btn" key={s}>{s}</a>
+                {[
+                  { label: 'IG', href: 'https://www.instagram.com/sivagiri_runners/' },
+                  { label: 'FB', href: '#' },
+                  { label: 'ST', href: '#' },
+                  { label: 'YT', href: '#' },
+                  { label: 'WA', href: '#' },
+                ].map(({ label, href }) => (
+                  <a href={href} className="social-btn" key={label} target="_blank" rel="noopener noreferrer">{label}</a>
                 ))}
               </div>
             </div>
