@@ -831,21 +831,31 @@ const Home = () => {
               <div className="results-loading"><div className="results-spinner" /><span>Loading results…</span></div>
             ) : results2024.length === 0 ? (
               <p style={{ color: 'var(--muted)', marginTop: 32 }}>Results not available.</p>
-            ) : (
-              <>
-                <div className="results-tabs">
-                  {results2024.map((cat, i) => (
-                    <button key={cat.race} className={`results-tab${resultsTab2024 === i ? ' active' : ''}`} onClick={() => setResultsTab2024(i)}>
-                      {cat.race}
-                    </button>
-                  ))}
-                </div>
-                {results2024[resultsTab2024] && (() => {
-                  const data = results2024[resultsTab2024].urlData;
-                  const ageCats = ['Overall', ...Array.from(new Set(data.map(r => r.Category).filter(Boolean))).sort()];
-                  return ageCats.map(cat => {
-                    const top3Men   = cat === 'Overall' ? data.filter(r => r.Gender === 'Male').slice(0, 3)   : data.filter(r => r.Gender === 'Male'   && r.Category === cat).slice(0, 3);
-                    const top3Women = cat === 'Overall' ? data.filter(r => r.Gender === 'Female').slice(0, 3) : data.filter(r => r.Gender === 'Female' && r.Category === cat).slice(0, 3);
+            ) : (() => {
+              /* 2024 has all runners in one urlData array; split by Distance field */
+              const allRunners = results2024[0].urlData;
+              const distances  = Array.from(new Set(allRunners.map(r => r.Distance).filter(Boolean)));
+              const activeDist = distances[resultsTab2024] || distances[0];
+              const byDist     = allRunners
+                .filter(r => r.Distance === activeDist)
+                .sort((a, b) => parseInt(a.Place) - parseInt(b.Place));
+
+              const ageCats = ['Overall', ...Array.from(new Set(byDist.map(r => r.Category).filter(Boolean))).sort()];
+
+              return (
+                <>
+                  <div className="results-tabs">
+                    {distances.map((d, i) => (
+                      <button key={d} className={`results-tab${resultsTab2024 === i ? ' active' : ''}`} onClick={() => setResultsTab2024(i)}>
+                        {d}
+                      </button>
+                    ))}
+                  </div>
+
+                  {ageCats.map(cat => {
+                    const pool      = cat === 'Overall' ? byDist : byDist.filter(r => r.Category === cat);
+                    const top3Men   = pool.filter(r => r.Gender === 'Male').slice(0, 3);
+                    const top3Women = pool.filter(r => r.Gender === 'Female').slice(0, 3);
                     if (!top3Men.length && !top3Women.length) return null;
                     return (
                       <div className="res-age-block" key={cat}>
@@ -878,15 +888,16 @@ const Home = () => {
                         </div>
                       </div>
                     );
-                  });
-                })()}
-                <div className="results-footer">
-                  <a href="https://www.novarace.in/results/sivagiri-marathon-2024" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                    View Full Results on novarace.in
-                  </a>
-                </div>
-              </>
-            )
+                  })}
+
+                  <div className="results-footer">
+                    <a href="https://www.novarace.in/results/sivagiri-marathon-2024" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                      View Full Results on novarace.in
+                    </a>
+                  </div>
+                </>
+              );
+            })()
           )}
         </div>
       </section>
@@ -1047,7 +1058,7 @@ const Home = () => {
           <div className="reviews-grid">
             {[
               { name: 'Raghu Nair', text: 'Running through Sivagiri at 5 AM with mist on the hills and no sound but footsteps is an experience I cannot describe. This race has soul. Completely different from city races — the community here treats every runner like family.' },
-              { name: 'Anitha Mohan', text: 'The fact that this event is run by runners shows in every tiny detail. The aid stations are perfectly placed, the volunteers are enthusiastic, and the post-race Sivagiri sadya is worth the entire trip. Already planning to upgrade to the full in 2027!' },
+              { name: 'Anitha Mohan', text: 'The fact that this event is run by runners shows in every tiny detail. The aid stations are perfectly placed, the volunteers are enthusiastic, and the post-race Sivagiri sadya is worth the entire trip. Already planning to upgrade to the full in 2026!' },
               { name: 'Vivek Suresh', text: 'Sivagiri Marathon is the most runner-centric event I\'ve been to in South India. Beautiful scenery, great organisation, and a finish line atmosphere that gives you goosebumps.' },
             ].map(({ name, text }) => (
               <div className="review-card" key={name}>
@@ -1095,7 +1106,7 @@ const Home = () => {
             {[
               { title: 'Refund Policy',       text: 'All registrations are non-refundable. In case of event cancellation due to force majeure or weather, registrations will be rolled over to the next edition or a partial credit will be issued per the organiser\'s discretion.' },
               { title: 'Transfer Policy',     text: 'BIB transfers permitted up to June 5, 2026 via the NovaRace portal with a ₹100 admin fee. Transfers are not allowed across distance categories. New participants must submit fresh emergency contact details.' },
-              { title: 'Medical Requirements',text: '42KM and 20 Miler participants must submit a medical fitness certificate at expo. Participants with cardiac conditions, diabetes, or recent injuries are advised to consult their physician before registering.' },
+              { title: 'Medical Requirements',text: '42KM and 21KM participants must submit a medical fitness certificate at expo. Participants with cardiac conditions, diabetes, or recent injuries are advised to consult their physician before registering.' },
               { title: 'Liability Waiver',    text: 'By registering, participants confirm they are medically fit to compete and acknowledge the inherent physical risks of long-distance running. Sivagiri Runners and partners are not liable for personal injury, loss, or damage.' },
             ].map(({ title, text }) => (
               <div className="terms-card" key={title}>
