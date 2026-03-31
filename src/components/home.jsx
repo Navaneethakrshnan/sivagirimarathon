@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import './home.css';
-import marathonLogo from '../assets/marathon-logo.png';
+import marathonLogo from '../assets/sivagirimarathon2026.png';
 import runnersLogo  from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
+import heroImg      from '../assets/hero-bg.png';
 import racePhoto1  from '../assets/photos/race-day/photo1.png';
 import racePhoto2  from '../assets/photos/race-day/photo2.png';
 import racePhoto3  from '../assets/photos/race-day/photo3.png';
@@ -69,7 +70,7 @@ const faqs = [
   },
   {
     q: 'Is the 42KM full marathon course suitable for first-time marathoners?',
-    a: 'The 42KM course runs through rolling hills around Sivagiri with a total elevation gain of approximately 210m. It is a moderately challenging course — not flat, but manageable for trained runners. We recommend having completed at least one half marathon within the last 6 months before registering for the full. Pacers will be available for 3:30, 4:00, 4:30, and 5:00 finish times.',
+    a: 'The 42KM course runs through rolling hills around Sivagiri with a total elevation gain of approximately 210m. It is a moderately challenging course — not flat, but manageable for trained runners. We recommend having completed at least one half marathon within the last 6 months before registering for the full.',
   },
   {
     q: 'Can I transfer my BIB to another runner?',
@@ -77,15 +78,19 @@ const faqs = [
   },
   {
     q: 'What is the cut-off time for the Full Marathon?',
-    a: 'The Full Marathon has a 6-hour cut-off from the 4:30 AM flag off, meaning all runners must finish by 10:30 AM. Sweep vehicles will begin at the 32KM point from 9:00 AM. Runners who cannot maintain the minimum pace will be directed to sweep vehicles for safety.',
+    a: 'The Full Marathon has a 6-hour cut-off from the 4:00 AM flag off, meaning all runners must finish by 10:00 AM. Sweep vehicles will begin at the 32KM point from 9:00 AM. Runners who cannot maintain the minimum pace will be directed to sweep vehicles for safety.',
   },
   {
     q: 'Will race photos be free? How do I access them?',
-    a: 'Yes — all race photos are completely free. Our photography team will cover the start, course, finish line, and medal ceremony. Photos will be available on the NovaRace portal within 24–48 hours, searchable by your BIB number. You\'ll receive an email notification when your photos are ready.',
+    a: 'Yes — all race photos are completely free. Our photography team will cover the start, course, finish line, and medal ceremony. Photos will be available on the NovaRace portal within 24 hours, searchable by your BIB number. You\'ll receive an email notification when your photos are ready.',
   },
   {
     q: 'Is accommodation available near the race venue?',
-    a: 'Sivagiri and Varkala have a range of accommodation options from budget guesthouses to beach resorts, all within 5–15 minutes of the start line. Our community partner Coconut Valley Resort is offering special race-week rates for participants. Check the participant handbook (released 4 weeks before race day) for detailed accommodation options and transport info.',
+    a: 'Accommodation is available near the venue in a wedding hall, equipped with basic toilet facilities for participants.',
+  },
+  {
+    q: 'Any Hotel Near the venue?',
+    a: 'Yes, there are a few hotels within 10 km of the venue with good facilities. You can check and book them online.',
   },
 ];
 
@@ -215,11 +220,11 @@ const Home = () => {
   return (
     <>
       {/* ── ALERT BANNER ── */}
-      <div className="alert-banner">
+      {/* <div className="alert-banner">
         <div className="alert-banner-dot"></div>
         <span className="alert-banner-text">Early Bird Closes Soon · Save ₹200 on all categories</span>
         <span className="alert-banner-sub"> · Registration open for all 5 distances including the Full 42KM</span>
-      </div>
+      </div> */}
 
       {/* ── NAV ── */}
       <nav className="nav">
@@ -241,11 +246,9 @@ const Home = () => {
       </nav>
 
       {/* ── 1. HERO ── */}
-      <section className="hero">
+      {/* <section className="hero">
         <div className="hero-sky"></div>
         <div className="hero-topo"></div>
-
-        {/* Hill silhouettes */}
         <svg style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 0, width: '100%', height: 'auto', opacity: .35 }} viewBox="0 0 1440 220" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path d="M0 220 L0 160 Q80 120 160 140 Q240 160 320 100 Q380 60 440 80 Q500 100 560 60 Q620 20 700 10 Q760 0 820 30 Q880 60 940 40 Q1000 20 1060 50 Q1120 80 1180 60 Q1260 30 1320 70 Q1380 110 1440 90 L1440 220 Z" fill="url(#hillGrad)" />
           <defs>
@@ -263,14 +266,13 @@ const Home = () => {
               <stop offset="100%" stopColor="#0e1209" stopOpacity="1" />
             </linearGradient>
           </defs>
-        </svg>
+        </svg> */}
 
-        <div className="hero-inner">
-          {/* Left col */}
-          <div>
+        {/* <div className="hero-inner"> */}
+          {/* <div>
             <div className="hero-edition-tag fade-up d1">
               <div className="hero-edition-num">4th</div>
-              <div className="hero-edition-text">Edition<br />Est. 2022</div>
+              <div className="hero-edition-text">Edition</div>
             </div>
 
             <h1 className="hero-title fade-up d2">
@@ -315,10 +317,10 @@ const Home = () => {
               </a>
               <a href="#about" className="btn btn-ghost">Learn More</a>
             </div>
-          </div>
+          </div> */}
 
           {/* Right col */}
-          <div className="hero-right fade-up d3">
+          {/* <div className="hero-right fade-up d3">
             <div className="countdown-card">
               <div className="countdown-label">Race Day Countdown — June 21, 2026</div>
               <div className="countdown-grid">
@@ -352,6 +354,29 @@ const Home = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* ── PHOTO HERO ── */}
+      <section className="photo-hero" style={{ backgroundImage: `url(${heroImg})` }}>
+        <div className="photo-hero-overlay"></div>
+        <div className="photo-hero-inner">
+          <div className="photo-hero-badge">June 21, 2026 &bull; Sivagiri, Erode</div>
+          <div className="photo-hero-title-block">
+            <span className="photo-hero-line1">Sivagiri</span>
+            <span className="photo-hero-line2">
+              <span className="ph-green">Marathon</span>{' '}
+              <span className="ph-gold">2026</span>
+            </span>
+          </div>
+          <p className="photo-hero-sub">
+            Join the 4th edition of the most celebrated runner's race in Tamil Nadu.<br/>
+            Push your limits along the scenic hills of Sivagiri.
+          </p>
+          <div className="photo-hero-ctas">
+            <a href="#categories" className="btn photo-hero-btn-primary">Registration Open Soon</a>
+            <a href="#about" className="btn photo-hero-btn-ghost">About Sivagiri Marathon</a>
           </div>
         </div>
       </section>
@@ -410,7 +435,7 @@ const Home = () => {
 
               <div className="about-stats">
                 {[
-                  { num: '4th',  label: 'Edition · Est. 2022' },
+                  { num: '4th',  label: 'Edition, 2026' },
                   { num: '4',    label: 'Race Distances' },
                   { num: '3K+',  label: 'Expected Runners' },
                   { num: '100%', label: 'Runner-organised' },
@@ -457,10 +482,10 @@ const Home = () => {
           </div>
           <div className="cats-grid">
             {[
-              { dist: '42', unit: 'KM', name: 'Full Marathon', flagship: true,  start: '4:30 AM', elig: '18+ Yrs', cutoff: '4 Hours',  medal: 'Finisher Medal', price: '₹799', slots: '180 left', total: '500' },
-              { dist: '21', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '3 Hours',  medal: 'Finisher Medal',    price: '₹699', slots: '350 left', total: '800' },
-              { dist: '10', unit: 'KM', name: 'Road Race',     flagship: false, start: '5:30 AM', elig: '15+ Yrs', cutoff: '90 Mins', medal: 'Finisher Medal',    price: '₹599',   slots: '480 left', total: '900' },
-              { dist: '5',  unit: 'KM', name: 'Fun Run',       flagship: false, start: '6:00 AM', elig: '12+ Yrs', cutoff: '75 Mins', medal: 'Finisher Medal',    price: '₹499',   slots: 'Open',     total: null  },
+              { dist: '42', unit: 'KM', name: 'Full Marathon', flagship: true,  start: '4:30 AM', elig: '18+ Yrs', cutoff: '6 Hours',  medal: 'Finisher Medal', price: '₹799', originalPrice: '₹999', slots: '180 left', total: '500' },
+              { dist: '21', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours',  medal: 'Finisher Medal',    price: '₹699', originalPrice: '₹899', slots: '350 left', total: '800' },
+              { dist: '10', unit: 'KM', name: 'Road Race',     flagship: false, start: '5:30 AM', elig: '15+ Yrs', cutoff: '90 Mins', medal: 'Finisher Medal',    price: '₹599', originalPrice: '₹799', slots: '480 left', total: '900' },
+              { dist: '5',  unit: 'KM', name: 'Fun Run',       flagship: false, start: '6:00 AM', elig: '12+ Yrs', cutoff: '75 Mins', medal: 'Finisher Medal',    price: '₹499', originalPrice: '₹699', slots: 'Open',     total: null  },
             ].map((cat) => (
               <div className={`cat-card${cat.flagship ? ' flagship' : ''}`} key={cat.name}>
                 <div className="cat-card-top">
@@ -475,7 +500,14 @@ const Home = () => {
                   <div className="cat-row"><span className="cat-row-l">Medal</span><span className="cat-row-r">{cat.medal}</span></div>
                 </div>
                 <div className="cat-footer">
-                  <div className="cat-price">{cat.price} <span>/ person</span></div>
+                  <div className="cat-price-block">
+                    <span className="cat-early-bird">Early Bird</span>
+                    <div className="cat-price-row">
+                      <span className="cat-original-price">{cat.originalPrice}</span>
+                      <span className="cat-price">{cat.price}</span>
+                    </div>
+                    <span className="cat-price-sub">/ person · Save ₹200</span>
+                  </div>
                   <a href="#" className={`btn ${cat.flagship ? 'btn-primary' : 'btn-ghost'}`} style={{ width: '100%', justifyContent: 'center' }}>Opening Soon →</a>
                 </div>
               </div>
@@ -509,7 +541,7 @@ const Home = () => {
             </div>
             <div className="course-sidebar">
               {[
-                { label: 'Start / Finish',   val: 'Sivagiri Mutt Grounds, Varkala' },
+                { label: 'Start / Finish',   val: 'Sivagiri Mutt Grounds, Sivagiri' },
                 { label: 'Course Type',      val: 'Rolling Hills · Paved Road' },
                 { label: 'Aid Stations',     val: 'Every 2.5 KM' },
                 { label: 'Timing Points',    val: 'Start · 10K · 21K · 32K · Finish' },
@@ -588,7 +620,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="expo-row-label">Dates</div>
-                  <div className="expo-row-val">June 19 &amp; 20, 2026<br />10:00 AM – 7:00 PM both days</div>
+                  <div className="expo-row-val">June 20, 2026<br />10:00 AM – 7:00 PM</div>
                 </div>
               </div>
               <div className="expo-row">
@@ -616,7 +648,7 @@ const Home = () => {
                 {[
                   'Registration confirmation email / SMS / WhatsApp',
                   'Valid government photo ID (Aadhaar / Driving Licence / Passport)',
-                  'Medical fitness certificate (42KM & 20 Miler mandatory)',
+                  'Medical fitness certificate (Full Marathon & Half Marathon)',
                   'Signed indemnity form (available at expo for 42KM runners)',
                   'Proxy authorization letter + your photo ID copy (if collecting for another runner)',
                 ].map((item) => <li key={item}>{item}</li>)}
@@ -722,8 +754,8 @@ const Home = () => {
             {[
               { tier: 'Title Sponsor',        items: [{ name: 'Sivagiri Heritage Trust', extra: 'title-sp' }] },
               { tier: 'Powered By',           items: [{ name: 'Sivagiri Sports Council' }, { name: 'RunGear India' }] },
-              { tier: 'Associate Sponsors',   items: [{ name: 'VarkalaHotels' }, { name: 'Coconut Valley Resort' }, { name: 'HealthFirst Clinic' }, { name: 'Sivagiri Tourism' }] },
-              { tier: 'Community Partners',   items: [{ name: 'Varkala Runners Club' }, { name: 'Sivagiri Running Community' }, { name: 'Trail Runners Sivagiri' }] },
+              { tier: 'Associate Sponsors',   items: [{ name: 'SivagiriHotels' }, { name: 'Coconut Valley Resort' }, { name: 'HealthFirst Clinic' }, { name: 'Sivagiri Tourism' }] },
+              { tier: 'Community Partners',   items: [{ name: 'Sivagiri Runners Club' }, { name: 'Sivagiri Running Community' }, { name: 'Trail Runners Sivagiri' }] },
               { tier: 'Race Technology Partner', items: [{ name: 'NovaRace', extra: 'novarace' }] },
             ].map(({ tier, items }) => (
               <div key={tier}>
@@ -1015,7 +1047,7 @@ const Home = () => {
           <h2 className="section-title">Meet the <em>Organiser</em></h2>
           <div className="organizer-card">
             <div className="org-logo">
-              <img src={runnersLogo} alt="Sivagiri Runners" className="org-logo-img" />
+              <img src={runnersLogo} alt="Sivagir i Runners" className="org-logo-img" />
             </div>
             <div>
               <div className="org-name">Sivagiri Runners</div>
@@ -1026,20 +1058,19 @@ const Home = () => {
                   { label: 'FB', href: '#' },
                   { label: 'ST', href: '#' },
                   { label: 'YT', href: '#' },
-                  { label: 'WA', href: '#' },
                 ].map(({ label, href }) => (
                   <a href={href} className="social-btn" key={label} target="_blank" rel="noopener noreferrer">{label}</a>
                 ))}
               </div>
             </div>
             <div className="org-contacts">
-              <a href="mailto:hello@sivagirimarathon.in" className="org-contact">
+              <a href="mailto:sivagirimarathon@gmail.com" className="org-contact">
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-                hello@sivagirimarathon.in
+                sivagirimarathon@gmail.com
               </a>
               <a href="tel:+919876500000" className="org-contact">
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" /></svg>
-                +91 98765 00000
+                +91 97888 87888
               </a>
               <a href="https://sivagirimarathon.in" className="org-contact">
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
@@ -1081,7 +1112,7 @@ const Home = () => {
               { icon: '🚑', title: 'Ambulances',      text: '4 ambulances stationed at key points across the full course, with dedicated coverage for the 42KM route from 4:00 AM until last finisher.' },
               { icon: '🏥', title: 'Medical Stations',text: 'First aid posts every 5KM with trained medical volunteers, bandaging, sports injury support, and emergency response capability.' },
               { icon: '👨‍⚕️', title: 'Doctors On-Site', text: 'Qualified sports medicine physicians stationed at start/finish and at the 21KM midpoint. Full medical tent at finish line.' },
-              { icon: '🔦', title: 'Pre-Dawn Safety',  text: 'For 4:30 AM starters — reflective bibs, lit course markers, and motorcycle safety marshals for the first 10KM in low-light conditions.' },
+              { icon: '🔦', title: 'Pre-Dawn Safety',  text: 'For 4:0 0 AM starters — reflective bibs, lit course markers, and motorcycle safety marshals for the first 10KM in low-light conditions.' },
               { icon: '📞', title: 'Emergency Contacts', text: null },
             ].map(({ icon, title, text }) => (
               <div className="safety-card" key={title}>
