@@ -100,6 +100,17 @@ const CheckIcon = () => (
   </svg>
 );
 
+/** In dev, use Vite proxy (`vite.config.js`) so the results API is not blocked by CORS. */
+const NOVARACE_API_BASE = import.meta.env.DEV ? '/api/novarace' : 'https://api.novarace.in';
+
+function normalizeResultsPayload(data) {
+  if (!Array.isArray(data)) return [];
+  return data.filter((cat) => {
+    const race = (cat?.race ?? '').toString().toUpperCase().trim();
+    return !['1KM', '3KM'].includes(race);
+  });
+}
+
 const Home = () => {
   const [countdown, setCountdown] = useState({ days: '--', hours: '--', mins: '--', secs: '--' });
   const [stickyVisible, setStickyVisible] = useState(false);
@@ -119,25 +130,37 @@ const Home = () => {
   const [resultsTab2024, setResultsTab2024]         = useState(0);
 
   useEffect(() => {
-    fetch('https://api.novarace.in/api/events/getresults-search?event_slug=sivagiri-marathon-2025')
-      .then(r => r.json())
-      .then(data => {
-        const filtered = data.filter(cat => !['1KM','3KM'].includes(cat.race.toUpperCase().trim()));
-        setResults(filtered);
-        setResultsLoading(false);
-      })
-      .catch(() => setResultsLoading(false));
+    let cancelled = false;
+    (async () => {
+      try {
+        const url = `${NOVARACE_API_BASE}/api/events/getresults-search?event_slug=sivagiri-marathon-2025`;
+        const r = await fetch(url);
+        const data = r.ok ? await r.json() : null;
+        if (!cancelled) setResults(normalizeResultsPayload(data));
+      } catch {
+        if (!cancelled) setResults([]);
+      } finally {
+        if (!cancelled) setResultsLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
-    fetch('https://api.novarace.in/api/events/getresults-search?event_slug=sivagiri-marathon-2024')
-      .then(r => r.json())
-      .then(data => {
-        const filtered = data.filter(cat => !['1KM','3KM'].includes(cat.race.toUpperCase().trim()));
-        setResults2024(filtered);
-        setResultsLoading2024(false);
-      })
-      .catch(() => setResultsLoading2024(false));
+    let cancelled = false;
+    (async () => {
+      try {
+        const url = `${NOVARACE_API_BASE}/api/events/getresults-search?event_slug=sivagiri-marathon-2024`;
+        const r = await fetch(url);
+        const data = r.ok ? await r.json() : null;
+        if (!cancelled) setResults2024(normalizeResultsPayload(data));
+      } catch {
+        if (!cancelled) setResults2024([]);
+      } finally {
+        if (!cancelled) setResultsLoading2024(false);
+      }
+    })();
+    return () => { cancelled = true; };
   }, []);
 
   const getTop3 = (data, gender) =>
@@ -210,10 +233,10 @@ const Home = () => {
     { activity: 'Early Bird Registration Closes',    date: 'Apr 30, 2026', time: '11:59 PM',          pill: 'pill-warn',  pillText: 'Closing Soon' },
     { activity: 'General Registration Closes',       date: 'Jun 10, 2026', time: '11:59 PM',          pill: 'pill-green', pillText: 'Open' },
     { activity: 'Race Expo — Day (BIB Collection)',date: 'Jun 20, 2026', time: '10:00 AM – 7:00 PM',pill: 'pill-green', pillText: 'Open' },
-    { activity: 'Full Marathon Flag Off', date: 'Jun 21, 2026', time: '4:30 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
+    { activity: 'Full Marathon Flag Off', date: 'Jun 21, 2026', time: '4:00 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
     { activity: 'Half Marathon Flag Off',            date: 'Jun 21, 2026', time: '5:00 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
-    { activity: '10K Timed Run Flag Off',                      date: 'Jun 21, 2026', time: '5:30 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
-    { activity: '5K Timed Run Flag Off',               date: 'Jun 21, 2026', time: '6:00 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
+    { activity: '10K Timed Run Flag Off',                      date: 'Jun 21, 2026', time: '6.00 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
+    { activity: '5K Timed Run Flag Off',               date: 'Jun 21, 2026', time: '6:20 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
     { activity: 'Prize Distribution & Closing Ceremony', date: 'Jun 21, 2026', time: '10:00 AM onwards', pill: 'pill-blue', pillText: 'Post Race' },
   ];
 
@@ -245,119 +268,6 @@ const Home = () => {
         </div>
       </nav>
 
-      {/* ── 1. HERO ── */}
-      {/* <section className="hero">
-        <div className="hero-sky"></div>
-        <div className="hero-topo"></div>
-        <svg style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 0, width: '100%', height: 'auto', opacity: .35 }} viewBox="0 0 1440 220" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0 220 L0 160 Q80 120 160 140 Q240 160 320 100 Q380 60 440 80 Q500 100 560 60 Q620 20 700 10 Q760 0 820 30 Q880 60 940 40 Q1000 20 1060 50 Q1120 80 1180 60 Q1260 30 1320 70 Q1380 110 1440 90 L1440 220 Z" fill="url(#hillGrad)" />
-          <defs>
-            <linearGradient id="hillGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#2a4a18" stopOpacity=".9" />
-              <stop offset="100%" stopColor="#0e1209" stopOpacity="1" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <svg style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 0, width: '100%', height: 'auto', opacity: .5 }} viewBox="0 0 1440 140" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0 140 L0 100 Q100 80 200 100 Q300 120 400 80 Q480 50 560 70 Q640 90 720 50 Q800 10 880 30 Q960 50 1040 20 Q1120 0 1200 30 Q1320 60 1440 40 L1440 140 Z" fill="url(#hillGrad2)" />
-          <defs>
-            <linearGradient id="hillGrad2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#1a2e10" stopOpacity=".95" />
-              <stop offset="100%" stopColor="#0e1209" stopOpacity="1" />
-            </linearGradient>
-          </defs>
-        </svg> */}
-
-        {/* <div className="hero-inner"> */}
-          {/* <div>
-            <div className="hero-edition-tag fade-up d1">
-              <div className="hero-edition-num">4th</div>
-              <div className="hero-edition-text">Edition</div>
-            </div>
-
-            <h1 className="hero-title fade-up d2">
-              <span className="outline">Sivagiri</span><br />
-              <em>Marathon</em><br />
-              <span style={{ fontSize: '55%', color: 'var(--muted2)', fontStyle: 'normal' }}>2026</span>
-            </h1>
-
-            <div className="hero-tagline fade-up d3">By the Runners · For the Runners</div>
-
-            <div className="hero-meta fade-up d3">
-              <div className="hero-meta-item">
-                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-                June 21, 2026
-              </div>
-              <div className="hero-meta-item">
-                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" /><circle cx="12" cy="9" r="2.5" /></svg>
-                <a href="#map" style={{ color: 'inherit', borderBottom: '1px dashed rgba(154,170,132,.3)' }}>Sivagiri, Erode</a>
-              </div>
-              <div className="hero-meta-item">
-                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-                Flag Off: 4:00 AM
-              </div>
-            </div>
-
-            <div className="hero-distances fade-up d3">
-              {['42 KM · Full', '21 KM · Half', '10 KM', '5 KM'].map((badge, i) => (
-                <div
-                  key={badge}
-                  className={`dist-badge${i === 0 ? ' flagship' : ''}${activeBadge === badge ? ' active' : ''}`}
-                  onClick={() => setActiveBadge(activeBadge === badge ? null : badge)}
-                >
-                  {badge}
-                </div>
-              ))}
-            </div>
-
-            <div className="hero-ctas fade-up d4">
-              <a href="#categories" className="btn btn-primary">
-                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                Opening Soon Now
-              </a>
-              <a href="#about" className="btn btn-ghost">Learn More</a>
-            </div>
-          </div> */}
-
-          {/* Right col */}
-          {/* <div className="hero-right fade-up d3">
-            <div className="countdown-card">
-              <div className="countdown-label">Race Day Countdown — June 21, 2026</div>
-              <div className="countdown-grid">
-                {[
-                  { val: countdown.days,  label: 'Days' },
-                  { val: countdown.hours, label: 'Hours' },
-                  { val: countdown.mins,  label: 'Mins' },
-                  { val: countdown.secs,  label: 'Secs' },
-                ].map(({ val, label }) => (
-                  <div className="countdown-unit" key={label}>
-                    <span className="countdown-num">{val}</span>
-                    <span className="countdown-unit-label">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="trust-pills">
-              {[
-                { icon: '🏔️', label: 'Scenic Route',   sub: 'Hills & valleys of Sivagiri' },
-                { icon: '⏱️', label: 'Chip Timed',     sub: 'RFID precision by NovaRace' },
-                { icon: '🤝', label: 'Community Run',  sub: 'Organised by runners' },
-                { icon: '🏅', label: 'Unique Medal',   sub: 'Crafted for each edition' },
-              ].map(({ icon, label, sub }) => (
-                <div className="trust-pill" key={label}>
-                  <div className="trust-pill-icon">{icon}</div>
-                  <div>
-                    <div className="trust-pill-label">{label}</div>
-                    <div className="trust-pill-sub">{sub}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       {/* ── PHOTO HERO ── */}
       <section className="photo-hero" style={{ backgroundImage: `url(${heroImg})` }}>
         <div className="photo-hero-overlay"></div>
@@ -371,8 +281,8 @@ const Home = () => {
             </span>
           </div>
           <p className="photo-hero-sub">
-            Join the 4th edition of the most celebrated runner's race in Tamil Nadu.<br/>
-            Push your limits along the scenic hills of Sivagiri.
+            <span className="photo-hero-sub-line">Join the 4th edition of the most celebrated runner&apos;s race in Tamil Nadu.</span>
+            <span className="photo-hero-sub-line">Push your limits along the scenic routes of Sivagiri.</span>
           </p>
           <div className="photo-hero-ctas">
             <a href="#categories" className="btn photo-hero-btn-primary">Registration Open Soon</a>
@@ -482,10 +392,10 @@ const Home = () => {
           </div>
           <div className="cats-grid">
             {[
-              { dist: '42', unit: 'KM', name: 'Full Marathon', flagship: true,  start: '4:30 AM', elig: '18+ Yrs', cutoff: '6 Hours',  medal: 'Finisher Medal', price: '₹799', originalPrice: '₹999', slots: '180 left', total: '500' },
+              { dist: '42', unit: 'KM', name: 'Full Marathon', flagship: true,  start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours',  medal: 'Finisher Medal', price: '₹799', originalPrice: '₹999', slots: '180 left', total: '500' },
               { dist: '21', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours',  medal: 'Finisher Medal',    price: '₹699', originalPrice: '₹899', slots: '350 left', total: '800' },
-              { dist: '10', unit: 'KM', name: 'Road Race',     flagship: false, start: '5:30 AM', elig: '15+ Yrs', cutoff: '90 Mins', medal: 'Finisher Medal',    price: '₹599', originalPrice: '₹799', slots: '480 left', total: '900' },
-              { dist: '5',  unit: 'KM', name: 'Fun Run',       flagship: false, start: '6:00 AM', elig: '12+ Yrs', cutoff: '75 Mins', medal: 'Finisher Medal',    price: '₹499', originalPrice: '₹699', slots: 'Open',     total: null  },
+              { dist: '10', unit: 'KM', name: 'Road Race',     flagship: false, start: '6:00 AM', elig: '15+ Yrs', cutoff: '90 Mins', medal: 'Finisher Medal',    price: '₹599', originalPrice: '₹799', slots: '480 left', total: '900' },
+              { dist: '5',  unit: 'KM', name: 'Timed Challenge',       flagship: false, start: '6:20 AM', elig: '12+ Yrs', cutoff: '75 Mins', medal: 'Finisher Medal',    price: '₹499', originalPrice: '₹699', slots: 'Open',     total: null  },
             ].map((cat) => (
               <div className={`cat-card${cat.flagship ? ' flagship' : ''}`} key={cat.name}>
                 <div className="cat-card-top">
@@ -506,7 +416,6 @@ const Home = () => {
                       <span className="cat-original-price">{cat.originalPrice}</span>
                       <span className="cat-price">{cat.price}</span>
                     </div>
-                    <span className="cat-price-sub">/ person · Save ₹200</span>
                   </div>
                   <a href="#" className={`btn ${cat.flagship ? 'btn-primary' : 'btn-ghost'}`} style={{ width: '100%', justifyContent: 'center' }}>Opening Soon →</a>
                 </div>
@@ -629,7 +538,16 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="expo-row-label">Important Note</div>
-                  <div className="expo-row-val">BIB must be collected at the Expo. No race-day BIB collection. Full Marathon participants must collect by 6:00 PM on June 21.</div>
+                  <div className="expo-row-val">BIB must be collected at the Expo. No race-day BIB collection. Full Marathon participants must collect by 6:00 PM on June 20.</div>
+                </div>
+              </div>
+              <div className="expo-row">
+                <div className="expo-row-icon">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+                </div>
+                <div>
+                  <div className="expo-row-label">Important</div>
+                  <div className="expo-row-val">BIBs will not be distributed on race morning — plan to collect yours at the Expo during the published hours.</div>
                 </div>
               </div>
             </div>
@@ -862,10 +780,24 @@ const Home = () => {
             resultsLoading2024 ? (
               <div className="results-loading"><div className="results-spinner" /><span>Loading results…</span></div>
             ) : results2024.length === 0 ? (
-              <p style={{ color: 'var(--muted)', marginTop: 32 }}>Results not available.</p>
+              <p style={{ color: 'var(--muted)', marginTop: 32 }}>
+                2024 results are not available here — the list could not be loaded. Try{' '}
+                <a href="https://www.novarace.in/results/sivagiri-marathon-2024" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cream)' }}>
+                  full results on NovaRace
+                </a>
+                .
+              </p>
             ) : (() => {
-              /* 2024 has all runners in one urlData array; split by Distance field */
-              const allRunners = results2024[0].urlData;
+              /* 2024: API may repeat the same urlData per race bucket — use first non-empty block */
+              const first = results2024.find((c) => Array.isArray(c?.urlData) && c.urlData.length);
+              const allRunners = first?.urlData;
+              if (!allRunners?.length) {
+                return (
+                  <p style={{ color: 'var(--muted)', marginTop: 32 }}>
+                    2024 results are not available — missing data from the results feed.
+                  </p>
+                );
+              }
               const distances  = Array.from(new Set(allRunners.map(r => r.Distance).filter(Boolean)));
               const activeDist = distances[resultsTab2024] || distances[0];
               const byDist     = allRunners
