@@ -115,6 +115,12 @@ const CheckIcon = () => (
   </svg>
 );
 
+/** Extra hero confetti: star, ribbon, ring, etc. (see `.photo-hero-popper--*` in home.css) */
+const HERO_POPPER_DESIGNS = [
+  'star', 'diamond', 'ring', 'ribbon', 'streamer', 'burst', 'curl',
+  'star', 'diamond', 'ring', 'ribbon', 'streamer', 'burst', 'curl', 'star',
+];
+
 /** In dev, use Vite proxy (`vite.config.js`) so the results API is not blocked by CORS. */
 const NOVARACE_API_BASE = import.meta.env.DEV ? '/api/novarace' : 'https://api.novarace.in';
 
@@ -293,8 +299,8 @@ const Home = () => {
         </div>
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#team">Team</a></li>
           <li><a href="#categories">Categories</a></li>
+          <li><a href="#team">Team</a></li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#expo">Expo</a></li>
           <li><a href="#results">Prevoius Year Results</a></li>
@@ -308,7 +314,37 @@ const Home = () => {
 
       {/* ── PHOTO HERO ── */}
       <section className="photo-hero" style={{ backgroundImage: `url(${heroImg})` }}>
-        <div className="photo-hero-overlay"></div>
+        <div className="photo-hero-overlay" aria-hidden="true" />
+        <div className="photo-hero-confetti" aria-hidden="true">
+          {Array.from({ length: 40 }, (_, i) => (
+            <span
+              key={i}
+              className={`photo-hero-confetti-piece${i % 4 === 0 ? ' photo-hero-confetti-piece--round' : ''}`}
+              style={{
+                '--ch-left': `${(i * 19 + 3) % 94}%`,
+                '--ch-delay': `${(i * 0.13) % 4.5}s`,
+                '--ch-duration': `${7.5 + (i % 8) * 0.65}s`,
+                '--ch-hue': `${(i * 41) % 360}`,
+                '--ch-drift': `${-36 + (i % 9) * 9}px`,
+                '--ch-len': `${10 + (i % 6)}px`,
+              }}
+            />
+          ))}
+          {HERO_POPPER_DESIGNS.map((design, i) => (
+            <span
+              key={`hero-popper-${design}-${i}`}
+              className={`photo-hero-confetti-piece photo-hero-popper photo-hero-popper--${design}`}
+              style={{
+                '--ch-left': `${(i * 23 + 11) % 91}%`,
+                '--ch-delay': `${(i * 0.29) % 4.2}s`,
+                '--ch-duration': `${8.5 + (i % 6) * 0.55}s`,
+                '--ch-hue': `${(i * 47 + 18) % 360}`,
+                '--ch-drift': `${-32 + (i % 8) * 9}px`,
+                '--ch-len': `${13 + (i % 6)}px`,
+              }}
+            />
+          ))}
+        </div>
         <div className="photo-hero-inner">
           <div className="photo-hero-badge">June 21, 2026 &bull; Sivagiri, Erode</div>
           <div className="photo-hero-title-block">
@@ -323,10 +359,9 @@ const Home = () => {
             <span className="photo-hero-sub-line">Push your limits along the scenic routes of Sivagiri.</span>
           </p>
           <div className="photo-hero-ctas">
-            <a href="" className="btn photo-hero-btn-primary">Opening soon</a>
-            <a href="#about" className="btn photo-hero-btn-ghost">About Sivagiri Marathon</a>
+            <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn photo-hero-btn-primary">Register Now</a>
           </div>
-          <div className="photo-hero-daytimer" aria-live="polite">
+          {/* <div className="photo-hero-daytimer" aria-live="polite">
             <span className="photo-hero-daytimer-label">Registration Opens at 12:00:00 AM</span>
             <span className="photo-hero-daytimer-clock" title="Hours : Minutes : Seconds remaining today">
               <span className="photo-hero-daytimer-seg">{untilDayEnd.h}</span>
@@ -335,7 +370,7 @@ const Home = () => {
               <span className="photo-hero-daytimer-sep">:</span>
               <span className="photo-hero-daytimer-seg">{untilDayEnd.s}</span>
             </span>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -428,25 +463,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── MEET OUR TEAM ── */}
-      <section className="section team-section" id="team">
-        <div className="container">
-          <div className="eyebrow">The People</div>
-          <h2 className="section-title">Meet Our <em>Team</em></h2>
-          <div className="team-split">
-            {teamMembers.slice(0, 2).map(({ photo, name, designation, bio }, i) => (
-              <article className="team-card" key={`team-${i}`}>
-                <div className="team-photo-wrap">
-                  <img src={photo} alt={`${name}, ${designation}`} className="team-photo" />
-                </div>
-                <h3 className="team-name">{name}</h3>
-                <p className="team-designation">{designation}</p>
-                <p className="team-bio">{bio}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── 4. RACE CATEGORIES ── */}
       <section className="section race-cats-bg" id="categories">
@@ -485,9 +501,29 @@ const Home = () => {
                       <span className="cat-price">{cat.price}</span>
                     </div>
                   </div>
-                  <a href="" className={`btn ${cat.flagship ? 'btn-primary' : 'btn-ghost'}`} style={{ width: '100%', justifyContent: 'center' }}>  Opening soon →</a>
+                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className={`btn ${cat.flagship ? 'btn-primary' : 'btn-ghost'}`} style={{ width: '100%', justifyContent: 'center' }}>Register Now →</a>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+       {/* ── MEET OUR TEAM ── */}
+      <section className="section team-section" id="team">
+        <div className="container">
+          <div className="eyebrow">The People</div>
+          <h2 className="section-title">Meet Our <em>Team</em></h2>
+          <div className="team-split">
+            {teamMembers.slice(0, 2).map(({ photo, name, designation, bio }, i) => (
+              <article className="team-card" key={`team-${i}`}>
+                <div className="team-photo-wrap">
+                  <img src={photo} alt={`${name}, ${designation}`} className="team-photo" />
+                </div>
+                <h3 className="team-name">{name}</h3>
+                <p className="team-designation">{designation}</p>
+                <p className="team-bio">{bio}</p>
+              </article>
             ))}
           </div>
         </div>
@@ -1161,7 +1197,7 @@ const Home = () => {
               <span className="sticky-cat" key={c}>{c}</span>
             ))}
           </div>
-          <a href="" className="btn btn-primary">Opening soon →</a>
+          <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn btn-primary">Register Now →</a>
         </div>
       </div>
 

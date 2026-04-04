@@ -172,8 +172,149 @@ body::after {
 .photo-hero-overlay {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background: rgba(0, 10, 30, 0.52);
 }
+
+/* Falling confetti / paper strips (above overlay, below content) */
+.photo-hero-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.photo-hero-confetti-piece {
+  position: absolute;
+  top: -12%;
+  left: var(--ch-left, 50%);
+  width: calc(var(--ch-len, 12px) * 0.45);
+  height: var(--ch-len, 12px);
+  border-radius: 1px;
+  background: hsl(var(--ch-hue, 200), 85%, 58%);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.35);
+  opacity: 0.92;
+  animation: photoHeroConfettiFall var(--ch-duration, 9s) linear infinite;
+  animation-delay: var(--ch-delay, 0s);
+  will-change: transform;
+}
+.photo-hero-confetti-piece--round {
+  width: var(--ch-len, 10px);
+  height: var(--ch-len, 10px);
+  border-radius: 50%;
+  background: hsl(var(--ch-hue, 320), 90%, 62%);
+  box-shadow: 0 0 6px hsla(var(--ch-hue, 320), 100%, 70%, 0.5);
+}
+
+/* Designed party poppers (larger shapes, gradients, clip-paths) */
+.photo-hero-popper {
+  z-index: 2;
+  opacity: 0.98;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+}
+
+.photo-hero-popper--star {
+  width: var(--ch-len, 14px);
+  height: var(--ch-len, 14px);
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background: linear-gradient(145deg, hsl(var(--ch-hue), 95%, 68%), hsl(calc(var(--ch-hue) + 42), 82%, 48%));
+  box-shadow: 0 0 10px hsla(var(--ch-hue), 100%, 62%, 0.55);
+}
+
+.photo-hero-popper--diamond {
+  width: var(--ch-len, 13px);
+  height: var(--ch-len, 13px);
+  border-radius: 0;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  background: linear-gradient(135deg, hsl(var(--ch-hue), 88%, 72%), hsl(calc(var(--ch-hue) + 55), 75%, 45%));
+  box-shadow: 0 0 8px hsla(var(--ch-hue), 100%, 68%, 0.5);
+}
+
+.photo-hero-popper--ring {
+  width: calc(var(--ch-len, 14px) * 1.15);
+  height: calc(var(--ch-len, 14px) * 1.15);
+  border-radius: 50%;
+  background: transparent;
+  border: 3px solid hsl(var(--ch-hue), 92%, 64%);
+  box-shadow:
+    0 0 0 1px hsla(var(--ch-hue), 100%, 78%, 0.35),
+    inset 0 0 8px hsla(var(--ch-hue), 85%, 45%, 0.45);
+}
+
+.photo-hero-popper--ribbon {
+  width: calc(var(--ch-len, 14px) * 1.35);
+  height: calc(var(--ch-len, 14px) * 0.52);
+  border-radius: 4px 14px 4px 14px;
+  background: linear-gradient(
+    90deg,
+    hsl(calc(var(--ch-hue) + 25), 92%, 54%),
+    hsl(var(--ch-hue), 78%, 70%),
+    hsl(calc(var(--ch-hue) - 18), 88%, 52%)
+  );
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+}
+
+.photo-hero-popper--streamer {
+  width: calc(var(--ch-len, 11px) * 0.38);
+  height: calc(var(--ch-len, 11px) * 2.4);
+  border-radius: 3px;
+  background: linear-gradient(
+    180deg,
+    hsl(var(--ch-hue), 88%, 64%),
+    hsl(calc(var(--ch-hue) + 45), 78%, 52%),
+    hsl(var(--ch-hue), 92%, 60%),
+    hsl(calc(var(--ch-hue) + 80), 70%, 48%)
+  );
+  box-shadow: 1px 0 0 hsla(var(--ch-hue), 100%, 80%, 0.25);
+}
+
+.photo-hero-popper--burst {
+  width: calc(var(--ch-len, 15px) * 1.05);
+  height: calc(var(--ch-len, 15px) * 1.05);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 45%, hsl(var(--ch-hue), 100%, 78%) 0%, transparent 42%),
+    conic-gradient(
+      from 15deg,
+      hsl(var(--ch-hue), 90%, 58%) 0deg 28deg,
+      transparent 28deg 52deg,
+      hsl(calc(var(--ch-hue) + 70), 85%, 55%) 52deg 80deg,
+      transparent 80deg 110deg,
+      hsl(var(--ch-hue), 88%, 62%) 110deg 140deg,
+      transparent 140deg 360deg
+    );
+  box-shadow: 0 0 12px hsla(var(--ch-hue), 100%, 55%, 0.45);
+}
+
+.photo-hero-popper--curl {
+  width: calc(var(--ch-len, 13px) * 1.1);
+  height: calc(var(--ch-len, 13px) * 1.1);
+  border-radius: 58% 38% 62% 40%;
+  background: linear-gradient(140deg, hsl(var(--ch-hue), 72%, 72%) 0%, hsl(calc(var(--ch-hue) + 35), 86%, 46%) 100%);
+  box-shadow: 3px 3px 0 hsla(var(--ch-hue), 55%, 32%, 0.35);
+}
+
+@keyframes photoHeroConfettiFall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(var(--ch-drift, 0), 118vh, 0) rotate(3turn);
+    opacity: 0.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-hero-confetti {
+    display: none;
+  }
+}
+
 .photo-hero-inner {
   position: relative;
   z-index: 2;
@@ -274,8 +415,8 @@ body::after {
   background: var(--green);
   color: #ffffff;
   border-radius: 100px;
-  padding: 14px 38px;
-  font-size: .88rem;
+  padding: 18px 58px;
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
