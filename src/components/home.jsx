@@ -323,7 +323,7 @@ const Home = () => {
             <span className="photo-hero-sub-line">Push your limits along the scenic routes of Sivagiri.</span>
           </p>
           <div className="photo-hero-ctas">
-            <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn photo-hero-btn-primary">Register Now</a>
+            <a href="" className="btn photo-hero-btn-primary">Opening soon</a>
             <a href="#about" className="btn photo-hero-btn-ghost">About Sivagiri Marathon</a>
           </div>
           <div className="photo-hero-daytimer" aria-live="polite">
@@ -485,7 +485,7 @@ const Home = () => {
                       <span className="cat-price">{cat.price}</span>
                     </div>
                   </div>
-                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className={`btn ${cat.flagship ? 'btn-primary' : 'btn-ghost'}`} style={{ width: '100%', justifyContent: 'center' }}>  Register Now →</a>
+                  <a href="" className={`btn ${cat.flagship ? 'btn-primary' : 'btn-ghost'}`} style={{ width: '100%', justifyContent: 'center' }}>  Opening soon →</a>
                 </div>
               </div>
             ))}
@@ -1161,7 +1161,7 @@ const Home = () => {
               <span className="sticky-cat" key={c}>{c}</span>
             ))}
           </div>
-          <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn btn-primary">Register Now →</a>
+          <a href="" className="btn btn-primary">Opening soon →</a>
         </div>
       </div>
 
