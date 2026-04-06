@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import './home.css';
 import marathonLogo from '../assets/sivagirimarathon2026.png';
-import runnersLogo  from '../assets/runners-logo.png';
+import runnersLogo from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
-import heroImg      from '../assets/hero-bg.png';
-import racePhoto1  from '../assets/photos/race-day/photo1.png';
-import racePhoto2  from '../assets/photos/race-day/photo2.png';
-import racePhoto3  from '../assets/photos/race-day/photo3.png';
-import racePhoto4  from '../assets/photos/race-day/photo4.png';
-import racePhoto5  from '../assets/photos/race-day/photo5.png';
-import racePhoto6  from '../assets/photos/race-day/photo6.png';
-import racePhoto7  from '../assets/photos/race-day/photo7.png';
-import racePhoto8  from '../assets/photos/race-day/photo8.png';
-import racePhoto9  from '../assets/photos/race-day/photo9.png';
+import heroImg from '../assets/hero-bg.png';
+import racePhoto1 from '../assets/photos/race-day/photo1.png';
+import racePhoto2 from '../assets/photos/race-day/photo2.png';
+import racePhoto3 from '../assets/photos/race-day/photo3.png';
+import racePhoto4 from '../assets/photos/race-day/photo4.png';
+import racePhoto5 from '../assets/photos/race-day/photo5.png';
+import racePhoto6 from '../assets/photos/race-day/photo6.png';
+import racePhoto7 from '../assets/photos/race-day/photo7.png';
+import racePhoto8 from '../assets/photos/race-day/photo8.png';
+import racePhoto9 from '../assets/photos/race-day/photo9.png';
 import racePhoto10 from '../assets/photos/race-day/photo10.png';
 import racePhoto11 from '../assets/photos/race-day/photo11.png';
 import racePhoto12 from '../assets/photos/race-day/photo12.png';
@@ -24,7 +24,7 @@ import racePhoto17 from '../assets/photos/race-day/photo17.png';
 import racePhoto18 from '../assets/photos/race-day/photo18.png';
 import racePhoto20 from '../assets/photos/race-day/photo20.png';
 import racePhoto21 from '../assets/photos/race-day/photo21.png';
-import racePhoto22 from '../assets/photos/race-day/photo22.png';  
+import racePhoto22 from '../assets/photos/race-day/photo22.png';
 import racePhoto23 from '../assets/photos/race-day/photo23.png';
 import racePhoto24 from '../assets/photos/race-day/photo24.png';
 import racePhoto25 from '../assets/photos/race-day/photo25.png';
@@ -46,7 +46,7 @@ const prizeData = {
   full: [
     { icon: '🥇', cls: 'medal-g', pos: '1st', cat: 'Full Marathon Open', men: '₹15,000', women: '₹15,000' },
     { icon: '🥈', cls: 'medal-s', pos: '2nd', cat: 'Full Marathon Open', men: '₹10,000', women: '₹10,000' },
-    { icon: '🥉', cls: 'medal-b', pos: '3rd', cat: 'Full Marathon Open', men: '₹7,000',  women: '₹7,000'  },
+    { icon: '🥉', cls: 'medal-b', pos: '3rd', cat: 'Full Marathon Open', men: '₹7,000', women: '₹7,000' },
   ],
   hm: [
     { icon: '🥇', cls: 'medal-g', pos: '1st', cat: 'Half Marathon Open', men: '₹8,000', women: '₹8,000' },
@@ -59,8 +59,8 @@ const prizeData = {
     { icon: '🥉', cls: 'medal-b', pos: '3rd', cat: '10K Open', men: '₹1,500', women: '₹1,500' },
   ],
   age: [
-    { icon: '🏅', cls: 'medal-g', pos: '1st', cat: 'Masters 40–49 (HM)',       men: '₹3,000', women: '₹3,000' },
-    { icon: '🏅', cls: 'medal-g', pos: '1st', cat: 'Veterans 50–59 (HM)',      men: '₹3,000', women: '₹3,000' },
+    { icon: '🏅', cls: 'medal-g', pos: '1st', cat: 'Masters 40–49 (HM)', men: '₹3,000', women: '₹3,000' },
+    { icon: '🏅', cls: 'medal-g', pos: '1st', cat: 'Veterans 50–59 (HM)', men: '₹3,000', women: '₹3,000' },
     { icon: '🏅', cls: 'medal-g', pos: '1st', cat: 'Super Veterans 60+ (HM)', men: '₹3,000', women: '₹3,000' },
   ],
 };
@@ -71,12 +71,12 @@ const faqs = [
     a: 'Sivagiri Marathon is entirely conceived, planned, and executed by runners — the Sivagiri Runners collective. There are no corporate event management teams. Every decision, from course design to finisher medal artwork to post-race food, is made by runners who have run this course themselves. That\'s what "By the Runners, For the Runners" truly means.',
   },
   {
-    q: 'Is the 42KM full marathon course suitable for first-time marathoners?',
-    a: 'The 42KM course runs through rolling hills around Sivagiri with a total elevation gain of approximately 210m. It is a moderately challenging course — not flat, but manageable for trained runners. We recommend having completed at least one half marathon within the last 6 months before registering for the full.',
+    q: 'Is the 42.2KM full marathon course suitable for first-time marathoners?',
+    a: 'The 42.2KM course runs through the scenic routes around Sivagiri with a total elevation gain of approximately 210m. It includes a few gentle undulations — not completely flat, but manageable for trained runners. We recommend having completed at least one half marathon within the last 6 months before registering for the full.',
   },
   {
     q: 'Can I transfer my BIB to another runner?',
-    a: 'BIB transfers are allowed up to June 5, 2026 via your NovaRace dashboard. A ₹100 processing fee applies. The new participant must fill a fresh registration form with their medical and emergency contact details. Transfers are not allowed between distance categories.',
+    a: 'Bib transfers are permitted until June 1, 2026. To transfer a bib, participants must send a request to sivagirimarathon@gmail.com with the appropriate registration details.',
   },
   {
     q: 'What is the cut-off time for the Full Marathon?',
@@ -84,7 +84,7 @@ const faqs = [
   },
   {
     q: 'Will race photos be free? How do I access them?',
-    a: 'Yes — all race photos are completely free. Our photography team will cover the start, course, finish line, and medal ceremony. Photos will be available on the NovaRace portal within 24 hours, searchable by your BIB number. You\'ll receive an email notification when your photos are ready.',
+    a: 'Yes — all race photos are completely free. Our photography team will cover the start, course, finish line, and medal ceremony. Photos will be available on the NovaRace portal within 7 hours, searchable by your BIB number and selfie . You\'ll receive an email notification when your photos are ready.',
   },
   {
     q: 'Is accommodation available near the race venue?',
@@ -141,15 +141,15 @@ const Home = () => {
   const [activeBadge, setActiveBadge] = useState(null);
 
   /* ── Results ── */
-  const [resultsYear, setResultsYear]       = useState('2025');
+  const [resultsYear, setResultsYear] = useState('2025');
 
-  const [results, setResults]               = useState([]);
+  const [results, setResults] = useState([]);
   const [resultsLoading, setResultsLoading] = useState(true);
-  const [resultsTab, setResultsTab]         = useState(0);
+  const [resultsTab, setResultsTab] = useState(0);
 
-  const [results2024, setResults2024]               = useState([]);
+  const [results2024, setResults2024] = useState([]);
   const [resultsLoading2024, setResultsLoading2024] = useState(true);
-  const [resultsTab2024, setResultsTab2024]         = useState(0);
+  const [resultsTab2024, setResultsTab2024] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -196,10 +196,10 @@ const Home = () => {
       const diff = raceDate - new Date();
       if (diff <= 0) { setCountdown({ days: '00', hours: '00', mins: '00', secs: '00' }); return; }
       setCountdown({
-        days:  String(Math.floor(diff / 86400000)).padStart(2, '0'),
+        days: String(Math.floor(diff / 86400000)).padStart(2, '0'),
         hours: String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0'),
-        mins:  String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'),
-        secs:  String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'),
+        mins: String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'),
+        secs: String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'),
       });
     };
     calc();
@@ -242,23 +242,23 @@ const Home = () => {
     'Race BIB with Name Print', 'RFID Timing Chip', 'Edition Finisher Medal',
     'Dry-fit Race T-Shirt', 'Aid Station Hydration', 'Digital E-Certificate',
     'Goodie Bag', 'Professional Race Photos', 'Medical Support on Course',
-    'Post-Race Refreshments', 'Live Tracking Link (42KM)', 'Pacer Support Available',
+    'Post-Race Refreshments', 'Live Tracking Link (42.2KM)', 'Pacer Support Available',
   ];
 
   const highlights = [
-    { icon: '🏅', label: 'Finisher Medal',  sub: 'Edition-exclusive design' },
-    { icon: '⏱️', label: 'Chip Timing',     sub: 'RFID precision' },
-    { icon: '👕', label: 'Race T-Shirt',    sub: 'Dry-fit performance' },
-    { icon: '💧', label: 'Full Hydration',  sub: 'Water + electrolytes' },
-    { icon: '📜', label: 'E-Certificate',   sub: 'Downloadable instantly' },
-    { icon: '🎁', label: 'Goodie Bag',      sub: 'Curated for runners' },
-    { icon: '📸', label: 'Race Photos',     sub: 'Free professional shots' },
-    { icon: '🌄', label: 'Scenic Course',   sub: 'Sivagiri hills landscape' },
+    { icon: '🏅', label: 'Finisher Medal', sub: 'Edition-exclusive design' },
+    { icon: '⏱️', label: 'Chip Timing', sub: 'RFID precision' },
+    { icon: '👕', label: 'Race T-Shirt', sub: 'Dry-fit performance' },
+    { icon: '💧', label: 'Full Hydration', sub: 'Water + electrolytes' },
+    { icon: '📜', label: 'E-Certificate', sub: 'Downloadable instantly' },
+    { icon: '🎁', label: 'Goodie Bag', sub: 'Curated for runners' },
+    { icon: '📸', label: 'Race Photos', sub: 'Free professional shots' },
+    { icon: '🌄', label: 'Scenic Course', sub: 'Sivagiri scenic route' },
   ];
 
   const racePhotos = [
-    racePhoto1,  racePhoto2,  racePhoto3,  racePhoto4,  racePhoto5,
-    racePhoto6,  racePhoto7,  racePhoto8,  racePhoto9,  racePhoto10,
+    racePhoto1, racePhoto2, racePhoto3, racePhoto4, racePhoto5,
+    racePhoto6, racePhoto7, racePhoto8, racePhoto9, racePhoto10,
     racePhoto11, racePhoto12, racePhoto13, racePhoto14, racePhoto15,
     racePhoto16, racePhoto17, racePhoto18, racePhoto20,
     racePhoto21, racePhoto22, racePhoto23, racePhoto24, racePhoto25,
@@ -266,20 +266,20 @@ const Home = () => {
     racePhoto31, racePhoto33, racePhoto33, racePhoto34, racePhoto35, racePhoto36, racePhoto37,
   ];
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIdx,  setLightboxIdx]  = useState(0);
-  const openLightbox  = (i) => { setLightboxIdx(i); setLightboxOpen(true); };
+  const [lightboxIdx, setLightboxIdx] = useState(0);
+  const openLightbox = (i) => { setLightboxIdx(i); setLightboxOpen(true); };
   const closeLightbox = () => setLightboxOpen(false);
   const prevPhoto = () => setLightboxIdx((i) => (i - 1 + racePhotos.length) % racePhotos.length);
   const nextPhoto = () => setLightboxIdx((i) => (i + 1) % racePhotos.length);
 
   const scheduleRows = [
-    { activity: 'Early Bird Registration Closes',    date: 'Apr 30, 2026', time: '11:59 PM',          pill: 'pill-warn',  pillText: 'Closing Soon' },
-    { activity: 'General Registration Closes',       date: 'Jun 10, 2026', time: '11:59 PM',          pill: 'pill-green', pillText: 'Open' },
-    { activity: 'Race Expo — Day (BIB Collection)',date: 'Jun 20, 2026', time: '10:00 AM – 7:00 PM',pill: 'pill-green', pillText: 'Open' },
-    { activity: 'Full Marathon Flag Off', date: 'Jun 21, 2026', time: '4:00 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
-    { activity: 'Half Marathon Flag Off',            date: 'Jun 21, 2026', time: '5:00 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
-    { activity: '10K Timed Run Flag Off',                      date: 'Jun 21, 2026', time: '6.00 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
-    { activity: '5K Timed Run Flag Off',               date: 'Jun 21, 2026', time: '6:20 AM',           pill: 'pill-warn',  pillText: 'Race Day' },
+    { activity: 'Early Bird Registration Closes', date: 'Apr 30, 2026', time: '11:59 PM', pill: 'pill-warn', pillText: 'Closing Soon' },
+    { activity: 'General Registration Closes', date: 'Jun 10, 2026', time: '11:59 PM', pill: 'pill-green', pillText: 'Open' },
+    { activity: 'Race Expo — Day (BIB Collection)', date: 'Jun 20, 2026', time: '10:00 AM – 7:00 PM', pill: 'pill-green', pillText: 'Open' },
+    { activity: 'Full Marathon Flag Off', date: 'Jun 21, 2026', time: '4:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
+    { activity: 'Half Marathon Flag Off', date: 'Jun 21, 2026', time: '5:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
+    { activity: '10K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6.00 AM', pill: 'pill-warn', pillText: 'Race Day' },
+    { activity: '5K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6:20 AM', pill: 'pill-warn', pillText: 'Race Day' },
     { activity: 'Prize Distribution & Closing Ceremony', date: 'Jun 21, 2026', time: '10:00 AM onwards', pill: 'pill-blue', pillText: 'Post Race' },
   ];
 
@@ -289,7 +289,7 @@ const Home = () => {
       {/* <div className="alert-banner">
         <div className="alert-banner-dot"></div>
         <span className="alert-banner-text">Early Bird Closes Soon · Save ₹200 on all categories</span>
-        <span className="alert-banner-sub"> · Registration open for all 5 distances including the Full 42KM</span>
+        <span className="alert-banner-sub"> · Registration open for all 5 distances including the Full 42.2KM</span>
       </div> */}
 
       {/* ── NAV ── */}
@@ -414,7 +414,7 @@ const Home = () => {
                 <strong style={{ color: 'var(--cream)' }}>Sivagiri Runners, </strong> the event proudly stands by its philosophy:
               </p>
               <b>“By the Runners, For the Runners.”</b>
-              <br/>
+              <br />
               <p>At Sivagiri Marathon, runners experience the best of both worlds — the <strong style={{ color: 'var(--cream)' }}>raw beauty of village landscapes</strong> combined with the <strong style={{ color: 'var(--cream)' }}>professional standards of a city marathon.</strong></p>
 
               <div className="about-pullquote">
@@ -428,9 +428,9 @@ const Home = () => {
 
               <div className="about-stats">
                 {[
-                  { num: '4th',  label: 'Edition, 2026' },
-                  { num: '4',    label: 'Race Distances' },
-                  { num: '3K+',  label: 'Expected Runners' },
+                  { num: '4th', label: 'Edition, 2026' },
+                  { num: '4', label: 'Race Distances' },
+                  { num: '1.5K+', label: 'Expected Runners' },
                   { num: '100%', label: 'Runner-organised' },
                 ].map(({ num, label }) => (
                   <div className="about-stat" key={label}>
@@ -471,15 +471,15 @@ const Home = () => {
             <div>
               <div className="eyebrow">Find Your Distance</div>
               <h2 className="section-title">Race <em>Categories</em></h2>
-              <p className="section-sub">Five distances for every kind of runner — from first-timers to seasoned marathoners.</p>
+              <p className="section-sub">Four distances for every kind of runner — from first-timers to seasoned marathoners.</p>
             </div>
           </div>
           <div className="cats-grid">
             {[
-              { dist: '42', unit: 'KM', name: 'Full Marathon', flagship: true,  start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours',  medal: 'Finisher Medal', price: '₹799', originalPrice: '₹999', slots: '180 left', total: '500' },
-              { dist: '21', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours',  medal: 'Finisher Medal',    price: '₹699', originalPrice: '₹899', slots: '350 left', total: '800' },
-              { dist: '10', unit: 'KM', name: 'Road Race',     flagship: false, start: '6:00 AM', elig: '15+ Yrs', cutoff: '90 Mins', medal: 'Finisher Medal',    price: '₹599', originalPrice: '₹799', slots: '480 left', total: '900' },
-              { dist: '5',  unit: 'KM', name: 'Timed Challenge',       flagship: false, start: '6:20 AM', elig: '12+ Yrs', cutoff: '75 Mins', medal: 'Finisher Medal',    price: '₹499', originalPrice: '₹699', slots: 'Open',     total: null  },
+              { dist: '42.2', unit: 'KM', name: 'Full Marathon', flagship: true, start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours', price: '₹799', originalPrice: '₹999', slots: '180 left', total: '500' },
+              { dist: '21.1', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours', price: '₹699', originalPrice: '₹899', slots: '350 left', total: '800' },
+              { dist: '10', unit: 'KM', name: 'Road Race', flagship: false, start: '6:00 AM', elig: '10+ Yrs', cutoff: '90 Mins', price: '₹599', originalPrice: '₹799', slots: '480 left', total: '900' },
+              { dist: '5', unit: 'KM', name: 'Timed Challenge', flagship: false, start: '6:20 AM', elig: '8+ Yrs', cutoff: '75 Mins', price: '₹499', originalPrice: '₹699', slots: 'Open', total: null },
             ].map((cat) => (
               <div className={`cat-card${cat.flagship ? ' flagship' : ''}`} key={cat.name}>
                 <div className="cat-card-top">
@@ -491,7 +491,6 @@ const Home = () => {
                   <div className="cat-row"><span className="cat-row-l">Start Time</span><span className="cat-row-r">{cat.start}</span></div>
                   <div className="cat-row"><span className="cat-row-l">Eligibility</span><span className="cat-row-r">{cat.elig}</span></div>
                   <div className="cat-row"><span className="cat-row-l">Cut-off</span><span className="cat-row-r">{cat.cutoff}</span></div>
-                  <div className="cat-row"><span className="cat-row-l">Medal</span><span className="cat-row-r">{cat.medal}</span></div>
                 </div>
                 <div className="cat-footer">
                   <div className="cat-price-block">
@@ -509,7 +508,7 @@ const Home = () => {
         </div>
       </section>
 
-       {/* ── MEET OUR TEAM ── */}
+      {/* ── MEET OUR TEAM ── */}
       <section className="section team-section" id="team">
         <div className="container">
           <div className="eyebrow">The People</div>
@@ -557,7 +556,7 @@ const Home = () => {
                 { label: 'Start / Finish',   val: 'Sivagiri Mutt Grounds, Sivagiri' },
                 { label: 'Course Type',      val: 'Rolling Hills · Paved Road' },
                 { label: 'Aid Stations',     val: 'Every 2.5 KM' },
-                { label: 'Timing Points',    val: 'Start · 10K · 21K · 32K · Finish' },
+                { label: 'Timing Points',    val: 'Start · 10K · 21.1KM · 32K · Finish' },
               ].map(({ label, val }) => (
                 <div className="crs-card" key={label}>
                   <div className="crs-card-label">{label}</div>
@@ -671,13 +670,13 @@ const Home = () => {
                   'Registration confirmation email / SMS / WhatsApp',
                   'Valid government photo ID (Aadhaar / Driving Licence / Passport)',
                   'Medical fitness certificate (Full Marathon & Half Marathon)',
-                  'Signed indemnity form (available at expo for 42KM runners)',
+                  'Signed indemnity form (available at expo for 42.2KM runners)',
                   'Proxy authorization letter + your photo ID copy (if collecting for another runner)',
                 ].map((item) => <li key={item}>{item}</li>)}
               </ul>
               {/* <div className="expo-notice">
                 <div className="expo-notice-title">Spot Registration at Expo</div>
-                <div className="expo-notice-text">Spot registrations available for 5K and 10K only, subject to slot availability. Cash and UPI accepted. 42KM, 20 Miler, and 21KM are closed for spot registration.</div>
+                <div className="expo-notice-text">Spot registrations available for 5K and 10K only, subject to slot availability. Cash and UPI accepted. 42.2KM, 20 Miler, and 21.1KM are closed for spot registration.</div>
               </div> */}
             </div>
           </div>
@@ -702,7 +701,7 @@ const Home = () => {
       </section>
 
       {/* ── 9. PRIZES ── */}
-     {/*  <section className="section" id="prizes">
+      {/*  <section className="section" id="prizes">
         <div className="container">
           <div className="eyebrow">Compete &amp; Win</div>
           <h2 className="section-title">Prizes &amp; <em>Rewards</em></h2>
@@ -834,7 +833,7 @@ const Home = () => {
                   const data = results[resultsTab].urlData;
                   const ageCats = ['Overall', ...Array.from(new Set(data.map(r => r.Category).filter(Boolean))).sort()];
                   return ageCats.map(cat => {
-                    const top3Men   = cat === 'Overall' ? data.filter(r => r.Gender === 'Male').slice(0, 3)   : data.filter(r => r.Gender === 'Male'   && r.Category === cat).slice(0, 3);
+                    const top3Men = cat === 'Overall' ? data.filter(r => r.Gender === 'Male').slice(0, 3) : data.filter(r => r.Gender === 'Male' && r.Category === cat).slice(0, 3);
                     const top3Women = cat === 'Overall' ? data.filter(r => r.Gender === 'Female').slice(0, 3) : data.filter(r => r.Gender === 'Female' && r.Category === cat).slice(0, 3);
                     if (!top3Men.length && !top3Women.length) return null;
                     return (
@@ -902,9 +901,9 @@ const Home = () => {
                   </p>
                 );
               }
-              const distances  = Array.from(new Set(allRunners.map(r => r.Distance).filter(Boolean)));
+              const distances = Array.from(new Set(allRunners.map(r => r.Distance).filter(Boolean)));
               const activeDist = distances[resultsTab2024] || distances[0];
-              const byDist     = allRunners
+              const byDist = allRunners
                 .filter(r => r.Distance === activeDist)
                 .sort((a, b) => parseInt(a.Place) - parseInt(b.Place));
 
@@ -921,8 +920,8 @@ const Home = () => {
                   </div>
 
                   {ageCats.map(cat => {
-                    const pool      = cat === 'Overall' ? byDist : byDist.filter(r => r.Category === cat);
-                    const top3Men   = pool.filter(r => r.Gender === 'Male').slice(0, 3);
+                    const pool = cat === 'Overall' ? byDist : byDist.filter(r => r.Category === cat);
+                    const top3Men = pool.filter(r => r.Gender === 'Male').slice(0, 3);
                     const top3Women = pool.filter(r => r.Gender === 'Female').slice(0, 3);
                     if (!top3Men.length && !top3Women.length) return null;
                     return (
@@ -1145,10 +1144,10 @@ const Home = () => {
           <p className="section-sub">Your safety on the course is our highest priority — always.</p>
           <div className="safety-grid">
             {[
-              { icon: '🚑', title: 'Ambulances',      text: '4 ambulances stationed at key points across the full course, with dedicated coverage for the 42KM route from 4:00 AM until last finisher.' },
-              { icon: '🏥', title: 'Medical Stations',text: 'First aid posts every 5KM with trained medical volunteers, bandaging, sports injury support, and emergency response capability.' },
-              { icon: '👨‍⚕️', title: 'Doctors On-Site', text: 'Qualified sports medicine physicians stationed at start/finish and at the 21KM midpoint. Full medical tent at finish line.' },
-              { icon: '🔦', title: 'Pre-Dawn Safety',  text: 'For 4:0 0 AM starters — reflective bibs, lit course markers, and motorcycle safety marshals for the first 10KM in low-light conditions.' },
+              { icon: '🚑', title: 'Ambulances', text: '4 ambulances stationed at key points across the full course, with dedicated coverage for the 42.2KM route from 4:00 AM until last finisher.' },
+              { icon: '🏥', title: 'Medical Stations', text: 'First aid posts every 5KM with trained medical volunteers, bandaging, sports injury support, and emergency response capability.' },
+              { icon: '👨‍⚕️', title: 'Doctors On-Site', text: 'Qualified sports medicine physicians stationed at start/finish and at the 21.1KM midpoint. Full medical tent at finish line.' },
+              { icon: '🔦', title: 'Pre-Dawn Safety', text: 'For 4:00 AM starters, runners are required to carry a torch/headlamp and wear reflective gear for visibility in low-light conditions.' },
               { icon: '📞', title: 'Emergency Contacts', text: null },
             ].map(({ icon, title, text }) => (
               <div className="safety-card" key={title}>
@@ -1156,7 +1155,7 @@ const Home = () => {
                 <div className="safety-card-title">{title}</div>
                 {text
                   ? <div className="safety-card-text">{text}</div>
-                  : <div className="safety-card-text">Race Emergency: <strong style={{ color: 'var(--amber)' }}>+91 94470 00001</strong><br />Medical Control: +91 94470 00002</div>
+                  : <div className="safety-card-text">Race Emergency: <strong style={{ color: 'var(--amber)' }}><br />+91 99435 07743</strong></div>
                 }
               </div>
             ))}
@@ -1171,10 +1170,10 @@ const Home = () => {
           <h2 className="section-title">Terms &amp; <em>Policies</em></h2>
           <div className="terms-grid">
             {[
-              { title: 'Refund Policy',       text: 'All registrations are non-refundable. In case of event cancellation due to force majeure or weather, registrations will be rolled over to the next edition or a partial credit will be issued per the organiser\'s discretion.' },
-              { title: 'Transfer Policy',     text: 'BIB transfers permitted up to June 5, 2026 via the NovaRace portal with a ₹100 admin fee. Transfers are not allowed across distance categories. New participants must submit fresh emergency contact details.' },
-              { title: 'Medical Requirements',text: '42KM and 21KM participants must submit a medical fitness certificate at expo. Participants with cardiac conditions, diabetes, or recent injuries are advised to consult their physician before registering.' },
-              { title: 'Liability Waiver',    text: 'By registering, participants confirm they are medically fit to compete and acknowledge the inherent physical risks of long-distance running. Sivagiri Runners and partners are not liable for personal injury, loss, or damage.' },
+              { title: 'Refund Policy', text: 'All registrations are non-refundable. In case of event cancellation due to force majeure or weather, registrations will be rolled over to the next edition or a partial credit will be issued per the organiser\'s discretion.' },
+              { title: 'Transfer Policy', text: 'Bib transfers are permitted until June 1, 2026. To transfer a bib, participants must send a request to sivagirimarathon@gmail.com with the appropriate registration details.' },
+              { title: 'Medical Requirements', text: '42.2KM and 21.1KM participants must submit a medical fitness certificate at expo. Participants with cardiac conditions, diabetes, or recent injuries are advised to consult their physician before registering.' },
+              { title: 'Liability Waiver', text: 'By registering, participants confirm they are medically fit to compete and acknowledge the inherent physical risks of long-distance running. Sivagiri Runners and partners are not liable for personal injury, loss, or damage.' },
             ].map(({ title, text }) => (
               <div className="terms-card" key={title}>
                 <div className="terms-title">{title}</div>
@@ -1193,7 +1192,7 @@ const Home = () => {
             <div className="sticky-meta">June 21, 2026 · Sivagiri, Erode</div>
           </div>
           <div className="sticky-cats">
-            {['42KM', '21KM', '10KM', '5KM'].map((c) => (
+            {['42.2KM', '21.1KM', '10KM', '5KM'].map((c) => (
               <span className="sticky-cat" key={c}>{c}</span>
             ))}
           </div>
@@ -1209,7 +1208,7 @@ const Home = () => {
               <img src={marathonLogo} alt="Sivagiri Marathon" className="footer-logo" />
               <div className="footer-brand-tagline">By the Runners · For the Runners</div>
               <div className="footer-address">
-                <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                 Sri Ram E-Seva, GH Road, Sivagiri, Erode
               </div>
             </div>
