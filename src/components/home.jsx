@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './home.css';
 import marathonLogo from '../assets/sivagirimarathon2026.png';
 import runnersLogo from '../assets/runners-logo.png';
@@ -139,6 +139,34 @@ const Home = () => {
   const [openFaq, setOpenFaq] = useState(0);
   const [prizeTab, setPrizeTab] = useState('full');
   const [activeBadge, setActiveBadge] = useState(null);
+  const carouselRef = useRef(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          const itemWidth = carouselRef.current.children[0]?.clientWidth || 300;
+          carouselRef.current.scrollBy({ left: itemWidth + 20, behavior: 'smooth' });
+        }
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleNextCarousel = () => {
+    if (carouselRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      if (scrollLeft + clientWidth >= scrollWidth - 10) {
+        carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        const itemWidth = carouselRef.current.children[0]?.clientWidth || 300;
+        carouselRef.current.scrollBy({ left: itemWidth + 20, behavior: 'smooth' });
+      }
+    }
+  };
 
   /* ── Results ── */
   const [resultsYear, setResultsYear] = useState('2025');
@@ -246,14 +274,46 @@ const Home = () => {
   ];
 
   const highlights = [
-    { icon: '🏅', label: 'Finisher Medal', sub: 'Edition-exclusive design' },
-    { icon: '⏱️', label: 'Chip Timing', sub: 'RFID precision' },
-    { icon: '👕', label: 'Race T-Shirt', sub: 'Dry-fit performance' },
-    { icon: '💧', label: 'Full Hydration', sub: 'Water + electrolytes' },
-    { icon: '📜', label: 'E-Certificate', sub: 'Downloadable instantly' },
-    { icon: '🎁', label: 'Goodie Bag', sub: 'Curated for runners' },
-    { icon: '📸', label: 'Race Photos', sub: 'Free professional shots' },
-    { icon: '🌄', label: 'Scenic Course', sub: 'Sivagiri scenic route' },
+    {
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="8" r="6"></circle>
+          <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+        </svg>
+      ),
+      label: 'Finisher Medal',
+      sub: 'A custom-crafted zinc alloy commemorative piece for every finisher who crosses the line.'
+    },
+    {
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="13" r="8"></circle>
+          <path d="M12 9v4l2 2"></path>
+          <line x1="12" y1="2" x2="12" y2="4"></line>
+          <line x1="8" y1="2" x2="16" y2="2"></line>
+        </svg>
+      ),
+      label: 'Chip Timed',
+      sub: 'RFID high-precision timing chips ensuring your split seconds are recorded accurately.'
+    },
+    {
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20.38 3.46 16 2a8.5 8.5 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
+        </svg>
+      ),
+      label: 'Premium Tee',
+      sub: 'Moisture-wicking, high-performance athletic fabric designed for marathon heat.'
+    },
+    {
+      icon: (
+        <svg fill="var(--green)" width="20" height="20" viewBox="0 0 24 24">
+          <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+        </svg>
+      ),
+      label: 'Hydration',
+      sub: 'Electrolytes and water stations positioned every 2.5km for optimal recovery.'
+    },
   ];
 
   const racePhotos = [
@@ -387,17 +447,28 @@ const Home = () => {
       {/* ── 2. HIGHLIGHTS ── */}
       <section className="section" id="highlights">
         <div className="container">
-          <div className="eyebrow">What You Get</div>
-          <h2 className="section-title">Race Day <em>Highlights</em></h2>
-          <p className="section-sub">Everything that makes Sivagiri Marathon the most awaited runner's celebration in Tamil Nadu.</p>
-          <div className="highlights-grid">
-            {highlights.map(({ icon, label, sub }) => (
-              <div className="highlight-item" key={label}>
-                <span className="hi-icon">{icon}</span>
-                <span className="hi-label">{label}</span>
-                <span className="hi-sub">{sub}</span>
-              </div>
-            ))}
+          <div className="highlights-header-row">
+            <div>
+              <div className="eyebrow">What You Get</div>
+              <h2 className="section-title">Race Day <em>Highlights</em></h2>
+              <p className="section-sub">Everything that makes Sivagiri Marathon the most awaited runner's celebration in Tamil Nadu.</p>
+            </div>
+            <button className="highlights-arrow-btn" onClick={handleNextCarousel} aria-label="Next Highlight">
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div className="highlights-carousel-wrapper">
+            <div className="highlights-carousel" ref={carouselRef}>
+              {[...highlights, ...highlights].map(({ icon, label, sub }, idx) => (
+                <div className="highlight-item" key={`${label}-${idx}`}>
+                  <div className="hi-icon-wrapper">
+                    <span className="hi-icon">{icon}</span>
+                  </div>
+                  <span className="hi-label">{label}</span>
+                  <span className="hi-sub">{sub}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -476,12 +547,12 @@ const Home = () => {
           </div>
           <div className="cats-grid">
             {[
-              { dist: '42.2', unit: 'KM', name: 'Full Marathon', flagship: true, start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours', price: '₹799', originalPrice: '₹999', slots: '180 left', total: '500' },
-              { dist: '21.1', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours', price: '₹699', originalPrice: '₹899', slots: '350 left', total: '800' },
-              { dist: '10', unit: 'KM', name: 'Road Race', flagship: false, start: '6:00 AM', elig: '10+ Yrs', cutoff: '90 Mins', price: '₹599', originalPrice: '₹799', slots: '480 left', total: '900' },
-              { dist: '5', unit: 'KM', name: 'Timed Challenge', flagship: false, start: '6:20 AM', elig: '8+ Yrs', cutoff: '75 Mins', price: '₹499', originalPrice: '₹699', slots: 'Open', total: null },
+              { dist: '42.2', unit: 'KM', name: 'Full Marathon', flagship: true, start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours', price: '₹799', originalPrice: '₹999', theme: 'cat-theme-dark' },
+              { dist: '21.1', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours', price: '₹699', originalPrice: '₹899', theme: 'cat-theme-green' },
+              { dist: '10', unit: 'KM', name: 'Road Race', flagship: false, start: '6:00 AM', elig: '10+ Yrs', cutoff: '90 Mins', price: '₹599', originalPrice: '₹799', theme: 'cat-theme-gold' },
+              { dist: '5', unit: 'KM', name: 'Timed Challenge', flagship: false, start: '6:20 AM', elig: '8+ Yrs', cutoff: '75 Mins', price: '₹499', originalPrice: '₹699', theme: 'cat-theme-grey' },
             ].map((cat) => (
-              <div className={`cat-card${cat.flagship ? ' flagship' : ''}`} key={cat.name}>
+              <div className={`cat-card ${cat.theme}`} key={cat.name}>
                 <div className="cat-card-top">
                   {cat.flagship && <span className="flagship-tag">Flagship</span>}
                   <div className="cat-dist">{cat.dist}<span>{cat.unit}</span></div>
@@ -500,7 +571,7 @@ const Home = () => {
                       <span className="cat-price">{cat.price}</span>
                     </div>
                   </div>
-                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className={`btn ${cat.flagship ? 'btn-primary' : 'btn-ghost'}`} style={{ width: '100%', justifyContent: 'center' }}>Register Now →</a>
+                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="cat-btn">Register Now →</a>
                 </div>
               </div>
             ))}
@@ -609,94 +680,243 @@ const Home = () => {
       </section>
 
       {/* ── 7. EXPO ── */}
-      <section className="section" id="expo">
-        <div className="container">
-          <div className="eyebrow">BIB Collection</div>
+      <section className="section expo-bg" id="expo">
+        <div className="container" style={{ position: 'relative' }}>
+          <div className="eyebrow" style={{ color: '#b9ccaf', letterSpacing: '0.15em', fontWeight: 700 }}>| BIB COLLECTION</div>
           <h2 className="section-title">Race <em>Expo</em></h2>
-          <p className="section-sub">Collect your race kit, meet fellow runners, and experience the pre-race buzz at the Sivagiri Marathon Expo.</p>
+          <p className="section-sub" style={{ maxWidth: '440px', fontSize: '.95rem', color: '#4a4a4a', lineHeight: 1.6, marginTop: '20px' }}>
+            Collect your race kit, meet fellow runners, and experience the pre-race buzz at the Sivagiri Marathon Expo.
+          </p>
+
           <div className="expo-grid">
-            <div className="expo-card">
-              <div className="expo-card-title">Expo <em>Venue</em> &amp; Dates</div>
+            {/* Left Card: Light Theme */}
+            <div className="expo-card expo-card-light">
+              <div className="expo-card-title">Expo <span className="expo-venue-hl">Venue</span> &amp; Dates</div>
+
               <div className="expo-row">
-                <div className="expo-row-icon">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" /><circle cx="12" cy="9" r="2.5" /></svg>
+                <div className="expo-icon-box">
+
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 </div>
                 <div>
-                  <div className="expo-row-label">Venue</div>
-                  <div className="expo-row-val">Kongu Vellalar Wedding Hall, Sivagiri Erode</div>
+                  <div className="expo-row-label">VENUE</div>
+                  <div className="expo-row-val" style={{ fontWeight: 600 }}>Kongu Vellalar Wedding Hall,<br />Sivagiri Erode</div>
                 </div>
               </div>
+
               <div className="expo-row">
-                <div className="expo-row-icon">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+                <div className="expo-icon-box">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 </div>
                 <div>
-                  <div className="expo-row-label">Dates</div>
-                  <div className="expo-row-val">June 20, 2026<br />10:00 AM – 7:00 PM</div>
+                  <div className="expo-row-label">DATES</div>
+                  <div className="expo-row-val" style={{ fontWeight: 600 }}>June 20, 2026<br /><span style={{ fontWeight: 400, color: '#666', fontSize: '.85rem' }}>10:00 AM – 7:00 PM</span></div>
                 </div>
               </div>
-              <div className="expo-row">
-                <div className="expo-row-icon">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+
+              <div className="expo-important-note">
+                <div className="expo-note-icon">
+                  <span style={{ color: '#fff', fontSize: '10px', fontWeight: 'bold' }}>i</span>
                 </div>
-                <div>
-                  <div className="expo-row-label">Important Note</div>
-                  <div className="expo-row-val">BIB must be collected at the Expo. No race-day BIB collection. Full Marathon participants must collect by 6:00 PM on June 20.</div>
-                </div>
-              </div>
-              <div className="expo-row">
-                <div className="expo-row-icon">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
-                </div>
-                <div>
-                  <div className="expo-row-label">Important</div>
-                  <div className="expo-row-val">BIBs will not be distributed on race morning — plan to collect yours at the Expo during the published hours.</div>
+                <div className="expo-note-content">
+                  <div className="expo-note-title">IMPORTANT NOTE</div>
+                  <div className="expo-note-text">
+                    BIB must be collected at the Expo. No race-day BIB collection. Full Marathon participants must collect by 6:00 PM on June 20.
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="expo-card">
-              <div className="expo-card-title">Documents <em>Required</em></div>
-              <div className="expo-row">
-                <div className="expo-row-icon">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
-                </div>
-                <div>
-                  <div className="expo-row-label">Bring the following to collect your BIB</div>
+            {/* Right Card: Dark Theme */}
+            <div className="expo-card expo-card-dark">
+              <div className="expo-dark-top">
+                <div className="expo-card-title expo-dark-title">Documents <em>Required</em></div>
+                <div className="expo-folder-icon">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 </div>
               </div>
-              <ul className="expo-docs">
-                {[
-                  'Registration confirmation email / SMS / WhatsApp',
-                  'Valid government photo ID (Aadhaar / Driving Licence / Passport)',
-                  'Medical fitness certificate (Full Marathon & Half Marathon)',
-                  'Signed indemnity form (available at expo for 42.2KM runners)',
-                  'Proxy authorization letter + your photo ID copy (if collecting for another runner)',
-                ].map((item) => <li key={item}>{item}</li>)}
+
+              <div className="expo-divider">
+                <span>BRING THE FOLLOWING TO COLLECT YOUR BIB</span>
+              </div>
+
+              <ul className="expo-docs-dark">
+                <li><span>Registration confirmation email / SMS / WhatsApp</span></li>
+                <li><span>Valid government photo ID (Aadhaar / Driving Licence / Passport)</span></li>
+                <li><span>Medical fitness certificate (Full Marathon &amp; Half Marathon)</span></li>
+                <li><span>Signed indemnity form <span className="muted-text">(available at expo for 42.2KM runners)</span></span></li>
+                <li><span>Proxy authorization letter + your photo ID copy <span className="muted-text">(if collecting for another runner)</span></span></li>
               </ul>
-              {/* <div className="expo-notice">
-                <div className="expo-notice-title">Spot Registration at Expo</div>
-                <div className="expo-notice-text">Spot registrations available for 5K and 10K only, subject to slot availability. Cash and UPI accepted. 42.2KM, 20 Miler, and 21.1KM are closed for spot registration.</div>
-              </div> */}
+
+              <div className="expo-alert-banner">
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span>BIBs will not be distributed on race morning – plan ahead!</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 8. ENTITLEMENTS ── */}
-      <section className="section entitle-bg" id="entitlements">
-        <div className="container">
-          <div className="eyebrow">Race Kit</div>
-          <h2 className="section-title">Participant <em>Entitlements</em></h2>
-          <p className="section-sub">Everything that comes with your Sivagiri Marathon registration — curated with care by fellow runners.</p>
-          <div className="entitle-grid">
-            {entitlements.map((item) => (
-              <div className="entitle-item" key={item}>
-                <div className="entitle-check"><CheckIcon /></div>
-                <span className="entitle-label">{item}</span>
-              </div>
-            ))}
+      {/* ── 8. RUNNER ARMORY ── */}
+      <section className="section armory-bg" id="entitlements">
+        <div className="container" style={{ position: 'relative', zIndex: 1, paddingBottom: '60px' }}>
+
+          <div className="armory-header">
+            <div className="armory-eyebrow">THE KIT LIST</div>
+            <div className="armory-title-wrap">
+              <h2 className="section-title">RUNNER <br /><em>ARMORY</em></h2>
+              <p className="armory-sub">
+                A performance package engineered for <br />those who refuse to stand still.
+              </p>
+            </div>
           </div>
+
+          <div className="armory-grid">
+            {/* 01 */}
+            <div className="armory-card theme-light-green style-normal">
+              <div className="armory-bg-number">01</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+                  <div className="armory-tag">ELITE TECH</div>
+                </div>
+                <div className="armory-card-title">PERSONALIZED<br />RACE BIB</div>
+              </div>
+            </div>
+
+            {/* 02 */}
+            <div className="armory-card theme-dark-gold style-slant offset-mid">
+              <div className="armory-bg-number">02</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg></div>
+                  <div className="armory-tag">PRECISION</div>
+                </div>
+                <div className="armory-card-title">RFID TIMING<br />CHIPSET</div>
+              </div>
+            </div>
+
+            {/* 03 */}
+            <div className="armory-card theme-light-gold style-normal offset-high">
+              <div className="armory-bg-number">03</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
+                  <div className="armory-tag">ICONIC</div>
+                </div>
+                <div className="armory-card-title">EDITION<br />FINISHER MEDAL</div>
+              </div>
+            </div>
+
+            {/* 04 */}
+            <div className="armory-card theme-grey-green style-normal">
+              <div className="armory-bg-number">04</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20.38 3.46L16 2a8 8 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg></div>
+                  <div className="armory-tag">KINETIC WEAR</div>
+                </div>
+                <div className="armory-card-title">DRY-FIT<br />RACE TEE</div>
+              </div>
+            </div>
+
+            {/* 05 */}
+            <div className="armory-card theme-light-black style-normal offset-mid">
+              <div className="armory-bg-number">05</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="8" width="18" height="12" rx="2" ry="2"></rect><path d="M16 8V6a4 4 0 0 0-8 0v2"></path></svg></div>
+                  <div className="armory-tag">SWAG</div>
+                </div>
+                <div className="armory-card-title">PREMIUM<br />GOODIE BAG</div>
+              </div>
+            </div>
+
+            {/* 06 */}
+            <div className="armory-card theme-green-green style-slant offset-high">
+              <div className="armory-bg-number">06</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
+                  <div className="armory-tag">MEMORIES</div>
+                </div>
+                <div className="armory-card-title">PRO RACE<br />PHOTOGRAPHS</div>
+              </div>
+            </div>
+
+            {/* 07 */}
+            <div className="armory-card theme-light-green style-normal">
+              <div className="armory-bg-number">07</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></div>
+                  <div className="armory-tag">FUEL</div>
+                </div>
+                <div className="armory-card-title">AID STATION<br />HYDRATION</div>
+              </div>
+            </div>
+
+            {/* 08 */}
+            <div className="armory-card theme-dark-gold style-slant offset-mid">
+              <div className="armory-bg-number">08</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg></div>
+                  <div className="armory-tag">ACHIEVEMENT</div>
+                </div>
+                <div className="armory-card-title">DIGITAL<br />E-CERTIFICATE</div>
+              </div>
+            </div>
+
+            {/* 09 */}
+            <div className="armory-card theme-light-gold style-normal offset-high">
+              <div className="armory-bg-number">09</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div>
+                  <div className="armory-tag">SUPPORT</div>
+                </div>
+                <div className="armory-card-title">MEDICAL SUPPORT<br />ON COURSE</div>
+              </div>
+            </div>
+
+            {/* 10 */}
+            <div className="armory-card theme-grey-green style-normal">
+              <div className="armory-bg-number">10</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></div>
+                  <div className="armory-tag">RECOVERY</div>
+                </div>
+                <div className="armory-card-title">POST-RACE<br />REFRESHMENTS</div>
+              </div>
+            </div>
+
+            {/* 11 */}
+            <div className="armory-card theme-light-black style-normal offset-mid">
+              <div className="armory-bg-number">11</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg></div>
+                  <div className="armory-tag">TRACKING</div>
+                </div>
+                <div className="armory-card-title">LIVE TRACKING<br />LINK (42.2KM)</div>
+              </div>
+            </div>
+
+            {/* 12 */}
+            <div className="armory-card theme-green-green style-slant offset-high">
+              <div className="armory-bg-number">12</div>
+              <div className="armory-card-inner">
+                <div className="armory-top-row">
+                  <div className="armory-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                  <div className="armory-tag">PACING</div>
+                </div>
+                <div className="armory-card-title">PACER SUPPORT<br />AVAILABLE</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
