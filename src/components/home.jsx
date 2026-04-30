@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import './home.css';
+import HotelsStays from './HotelsStays';
 import marathonLogo from '../assets/sivagirimarathon2026.png';
 import runnersLogo from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
+import magnTitleSponsorLogo from '../assets/magn-clothing-title-sponsor.png';
 import heroImg from '../assets/hero-bg.png';
 import racePhoto1 from '../assets/photos/race-day/photo1.png';
 import racePhoto2 from '../assets/photos/race-day/photo2.png';
@@ -136,6 +138,7 @@ const Home = () => {
   const [countdown, setCountdown] = useState({ days: '--', hours: '--', mins: '--', secs: '--' });
   const [untilDayEnd, setUntilDayEnd] = useState({ h: '00', m: '00', s: '00' });
   const [stickyVisible, setStickyVisible] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
   const [prizeTab, setPrizeTab] = useState('full');
   const [activeBadge, setActiveBadge] = useState(null);
@@ -154,6 +157,14 @@ const Home = () => {
       }
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 820) setNavOpen(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   const handleNextCarousel = () => {
@@ -353,11 +364,16 @@ const Home = () => {
       </div> */}
 
       {/* ── NAV ── */}
-      <nav className="nav">
+      <nav className={`nav${navOpen ? ' nav--open' : ''}`} aria-label="Main">
         <div className="nav-logo">
           <img src={marathonLogo} alt="Sivagiri Marathon" className="nav-logo-img" />
         </div>
-        <ul className="nav-links">
+        <ul
+          className="nav-links"
+          onClick={(e) => {
+            if (e.target.closest('a')) setNavOpen(false);
+          }}
+        >
           <li><a href="#about">About</a></li>
           <li><a href="#categories">Categories</a></li>
           <li><a href="#team">Team</a></li>
@@ -365,11 +381,23 @@ const Home = () => {
           <li><a href="#expo">Expo</a></li>
           <li><a href="#results">Prevoius Year Results</a></li>
           {/* <li><a href="#prizes">Prizes</a></li> */}
+          <li><a href="#hotels">Hotels</a></li>
           <li><a href="#faqs">FAQs</a></li>
         </ul>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="nav-runners-wrap">
           <img src={runnersLogo} alt="Sivagiri Runners" className="nav-runners-logo" />
         </div>
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-label={navOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={navOpen}
+          onClick={() => setNavOpen((o) => !o)}
+        >
+          <span className="nav-toggle-bar" aria-hidden="true" />
+          <span className="nav-toggle-bar" aria-hidden="true" />
+          <span className="nav-toggle-bar" aria-hidden="true" />
+        </button>
       </nav>
 
       {/* ── PHOTO HERO ── */}
@@ -973,23 +1001,41 @@ const Home = () => {
       </section>
 
       {/* ── 10. SPONSORS ── */}
-      <section className="section sponsors-bg" id="sponsors">
-        <div className="container">
-          <div className="eyebrow">Partners &amp; Supporters</div>
-          <h2 className="section-title">Our <em>Sponsors</em></h2>
-          <p className="section-sub">Proud organisations that believe in the spirit of community running.</p>
-
-          <div className="owned-by-bar">
-            <span className="owned-by-label">Owned &amp; Organised by</span>
-            <img src={runnersLogo} alt="Sivagiri Runners" className="owned-by-logo" />
+      <section className="section sponsors" id="sponsors">
+        <div className="container sponsors-stack">
+          <div className="eyebrow">Organised By</div>
+          <div className="sponsors-lead-mark">
+            <img src={marathonLogo} alt="Sivagiri Marathon 2026" className="sponsors-lead-logo" />
           </div>
-
-          <div className="race-partner-bar">
-            <span className="race-partner-label">Race Technology Partner</span>
-            <a href="https://www.novarace.in" target="_blank" rel="noopener noreferrer" className="race-partner-link">
-              <img src={novaraceLogo} alt="NovaRace" className="race-partner-logo" />
-            </a>
+          <div className="sponsors-title-block">
+            <h2 className="section-title">Our <em>Sponsors</em></h2>
+            <p className="section-sub">Proud organisations that believe in the spirit of community running.</p>
           </div>
+          <div className="sponsors-title-sponsor">
+            <span className="sponsors-title-sponsor-kicker">Title Sponsor</span>
+            <div className="sponsors-title-sponsor-logo">
+              <img src={magnTitleSponsorLogo} alt="MAGN Clothing.in" />
+            </div>
+          </div>
+          <div className="sponsors-partner-row" role="list">
+            <div className="sponsors-partner-cell" role="listitem">
+              <span className="sponsors-partner-label">Owned &amp; Organised by</span>
+              <img src={runnersLogo} alt="Sivagiri Runners" className="sponsors-partner-img sponsors-partner-img--runners" />
+            </div>
+            <div className="sponsors-partner-divider" aria-hidden="true" />
+            <div className="sponsors-partner-cell" role="listitem">
+              <span className="sponsors-partner-label">Race Technology Partner</span>
+              <a
+                href="https://www.novarace.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sponsors-partner-link"
+              >
+                <img src={novaraceLogo} alt="NovaRace" className="sponsors-partner-img sponsors-partner-img--novarace" />
+              </a>
+            </div>
+          </div>
+        </div>
 
           {/* <div className="sponsors-tier">
             {[
@@ -1011,7 +1057,6 @@ const Home = () => {
               </div>
             ))}
           </div> */}
-        </div>
       </section>
 
       {/* ── 11. RESULTS ── */}
@@ -1248,6 +1293,9 @@ const Home = () => {
           </div>
         </div>
       )}
+
+      {/* ── HOTELS & STAYS ── */}
+      <HotelsStays />
 
       {/* ── 12. FAQs ── */}
       <section className="section faq-bg" id="faqs">
