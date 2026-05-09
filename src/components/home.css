@@ -1743,13 +1743,86 @@ body::after {
 
 .cats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* Five-up cards: fit the 1200px container without crowding */
+.cats-grid .cat-card-top {
+  padding: 28px 12px 22px;
+}
+
+.cats-grid .cat-dist {
+  font-size: clamp(1.85rem, 2.5vw, 2.85rem);
+}
+
+.cats-grid .cat-dist span {
+  font-size: 1rem;
+  margin-left: 3px;
+}
+
+.cats-grid .cat-name {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+.cats-grid .cat-body {
+  padding-inline: 12px;
+}
+
+.cats-grid .cat-footer {
+  padding: 14px 12px 18px;
+}
+
+.cats-grid .cat-row {
+  font-size: 0.72rem;
+}
+
+.cats-grid .cat-btn {
+  padding: 12px 10px;
+  font-size: 0.82rem;
 }
 
 @media(max-width:1000px) {
   .cats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .cats-grid .cat-card-top {
+    padding: 40px 30px 30px;
+  }
+
+  .cats-grid .cat-dist {
+    font-size: 4rem;
+  }
+
+  .cats-grid .cat-dist span {
+    font-size: 1.25rem;
+    margin-left: 5px;
+  }
+
+  .cats-grid .cat-name {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+  }
+
+  .cats-grid .cat-body {
+    padding: 25px 30px;
+  }
+
+  .cats-grid .cat-footer {
+    padding: 0 30px 30px;
+  }
+
+  .cats-grid .cat-row {
+    font-size: revert;
+  }
+
+  .cats-grid .cat-btn {
+    padding: 14px 24px;
+    font-size: 0.95rem;
   }
 }
 
@@ -1972,6 +2045,22 @@ body::after {
   border: 1px solid #ccc;
 }
 .cat-theme-grey .cat-btn:hover { background: #e0e0e0; }
+
+/* 5. Fun Run — family-friendly */
+.cat-theme-fun .cat-card-top {
+  background: #e8f4fc;
+  color: #1a1a1a;
+  border-bottom: 4px solid #2b7cb3;
+}
+.cat-theme-fun .cat-dist { color: #1a1a1a; }
+.cat-theme-fun .cat-dist span { color: #2b7cb3; }
+.cat-theme-fun .cat-name { color: #4a6a7d; }
+.cat-theme-fun .cat-btn {
+  background: #2b7cb3;
+  color: #fff;
+  border: 1px solid #2b7cb3;
+}
+.cat-theme-fun .cat-btn:hover { background: #236a9a; border-color: #236a9a; }
 
 /* ─── COURSE MAP ─────────────────────────────────────────── */
 .course-wrap {
@@ -4181,6 +4270,7 @@ footer {
   color: var(--green-lt);
   margin-bottom: 14px;
   font-weight: 500;
+  text-align: center;
 }
 
 .footer-desc {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './home.css';
 import HotelsStays from './HotelsStays';
-import marathonLogo from '../assets/sivagirimarathon2026.png';
+import marathonLogo from '../assets/sivagirirunners2026Finallogo.png';
 import runnersLogo from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
 import magnTitleSponsorLogo from '../assets/magn-clothing-title-sponsor.png';
@@ -130,7 +130,7 @@ function normalizeResultsPayload(data) {
   if (!Array.isArray(data)) return [];
   return data.filter((cat) => {
     const race = (cat?.race ?? '').toString().toUpperCase().trim();
-    return !['1KM', '3KM'].includes(race);
+    return !['1KM'].includes(race);
   });
 }
 
@@ -351,6 +351,7 @@ const Home = () => {
     { activity: 'Half Marathon Flag Off', date: 'Jun 21, 2026', time: '5:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
     { activity: '10K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6.00 AM', pill: 'pill-warn', pillText: 'Race Day' },
     { activity: '5K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6:20 AM', pill: 'pill-warn', pillText: 'Race Day' },
+    { activity: '3K Fun Run Flag Off', date: 'Jun 21, 2026', time: '7:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
     { activity: 'Prize Distribution & Closing Ceremony', date: 'Jun 21, 2026', time: '10:00 AM onwards', pill: 'pill-blue', pillText: 'Post Race' },
   ];
 
@@ -360,7 +361,7 @@ const Home = () => {
       {/* <div className="alert-banner">
         <div className="alert-banner-dot"></div>
         <span className="alert-banner-text">Early Bird Closes Soon · Save ₹200 on all categories</span>
-        <span className="alert-banner-sub"> · Registration open for all 5 distances including the Full 42.2KM</span>
+        <span className="alert-banner-sub"> · Registration open for all 6 distances including the Full 42.2KM</span>
       </div> */}
 
       {/* ── NAV ── */}
@@ -528,7 +529,7 @@ const Home = () => {
               <div className="about-stats">
                 {[
                   { num: '4th', label: 'Edition, 2026' },
-                  { num: '4', label: 'Race Distances' },
+                  { num: '5', label: 'Race Distances' },
                   { num: '1.5K+', label: 'Expected Runners' },
                   { num: '100%', label: 'Runner-organised' },
                 ].map(({ num, label }) => (
@@ -570,15 +571,16 @@ const Home = () => {
             <div>
               <div className="eyebrow">Find Your Distance</div>
               <h2 className="section-title">Race <em>Categories</em></h2>
-              <p className="section-sub">Four distances for every kind of runner — from first-timers to seasoned marathoners.</p>
+              <p className="section-sub">Five distances for every kind of runner — from first-timers to seasoned marathoners.</p>
             </div>
           </div>
           <div className="cats-grid">
             {[
-              { dist: '42.2', unit: 'KM', name: 'Full Marathon', flagship: true, start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours', price: '₹799', originalPrice: '₹999', theme: 'cat-theme-dark' },
-              { dist: '21.1', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours', price: '₹699', originalPrice: '₹899', theme: 'cat-theme-green' },
-              { dist: '10', unit: 'KM', name: 'Road Race', flagship: false, start: '6:00 AM', elig: '10+ Yrs', cutoff: '90 Mins', price: '₹599', originalPrice: '₹799', theme: 'cat-theme-gold' },
-              { dist: '5', unit: 'KM', name: 'Timed Challenge', flagship: false, start: '6:20 AM', elig: '8+ Yrs', cutoff: '75 Mins', price: '₹499', originalPrice: '₹699', theme: 'cat-theme-grey' },
+              { dist: '42.2', unit: 'KM', name: 'Full Marathon', flagship: true, start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours', price: '₹999', theme: 'cat-theme-dark' },
+              { dist: '21.1', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours', price: '₹899', theme: 'cat-theme-green' },
+              { dist: '10', unit: 'KM', name: 'Road Race', flagship: false, start: '6:00 AM', elig: '10+ Yrs', cutoff: '90 Mins', price: '₹799', theme: 'cat-theme-gold' },
+              { dist: '5', unit: 'KM', name: 'Timed Challenge', flagship: false, start: '6:20 AM', elig: '8+ Yrs', cutoff: '75 Mins', price: '₹699', theme: 'cat-theme-grey' },
+              { dist: '3', unit: 'KM', name: 'Fun Run', flagship: false, start: '7:00 AM', elig: '3–100 Yrs', cutoff: '-', price: '₹499', theme: 'cat-theme-fun' },
             ].map((cat) => (
               <div className={`cat-card ${cat.theme}`} key={cat.name}>
                 <div className="cat-card-top">
@@ -1460,7 +1462,7 @@ const Home = () => {
             <div className="sticky-meta">June 21, 2026 · Sivagiri, Erode</div>
           </div>
           <div className="sticky-cats">
-            {['42.2KM', '21.1KM', '10KM', '5KM'].map((c) => (
+            {['42.2KM', '21.1KM', '10KM', '5KM', '3KM'].map((c) => (
               <span className="sticky-cat" key={c}>{c}</span>
             ))}
           </div>
@@ -1475,10 +1477,7 @@ const Home = () => {
             <div>
               <img src={marathonLogo} alt="Sivagiri Marathon" className="footer-logo" />
               <div className="footer-brand-tagline">By the Runners · For the Runners</div>
-              <div className="footer-address">
-                <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                Sri Ram E-Seva, GH Road, Sivagiri, Erode
-              </div>
+              
             </div>
             <div>
               <div className="footer-col-title">Event</div>
