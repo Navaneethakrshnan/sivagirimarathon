@@ -595,7 +595,6 @@ const Home = () => {
                 </div>
                 <div className="cat-footer">
                   <div className="cat-price-block">
-                    <span className="cat-early-bird">Early Bird</span>
                     <div className="cat-price-row">
                       <span className="cat-original-price">{cat.originalPrice}</span>
                       <span className="cat-price">{cat.price}</span>
