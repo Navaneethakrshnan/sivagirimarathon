@@ -2995,9 +2995,9 @@ body::after {
 }
 
 .sponsors-lead-logo {
-  height: clamp(80px, 12vw, 120px);
+  height: clamp(112px, 16.5vw, 172px);
   width: auto;
-  max-width: 260px;
+  max-width: 340px;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.07));
@@ -3028,9 +3028,9 @@ body::after {
 }
 
 .sponsors-title-sponsor-logo img {
-  height: clamp(72px, 11vw, 108px);
+  height: clamp(104px, 15.5vw, 160px);
   width: auto;
-  max-width: min(100%, 280px);
+  max-width: min(100%, 380px);
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.08));
@@ -3092,11 +3092,11 @@ body::after {
 }
 
 .sponsors-partner-img--runners {
-  height: 64px;
+  height: 94px;
 }
 
 .sponsors-partner-img--novarace {
-  height: 48px;
+  height: 72px;
 }
 
 .sponsors-partner-link {
@@ -3145,6 +3145,190 @@ body::after {
     height: 1px;
     min-height: 0;
     background: linear-gradient(90deg, transparent, rgba(74, 124, 47, 0.22), transparent);
+  }
+}
+
+/* Tier blocks below partner row */
+.sponsors-tier-section {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 52px;
+  padding-top: 44px;
+  border-top: 1px solid rgba(74, 124, 47, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.sponsors-tier-section--compact {
+  max-width: 1020px;
+}
+
+.sponsors-tier-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .82rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.sponsors-tier-single {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.sponsors-tier-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 48px 72px;
+  width: 100%;
+}
+
+.sponsors-tier-row--3 {
+  max-width: 920px;
+  gap: 0;
+}
+
+/* Vertical rule between logos (horizontal when row stacks on narrow screens) */
+.sponsors-tier-logo-slot {
+  flex: 1 1 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  padding: 12px 44px;
+  border-right: 1px solid rgba(74, 124, 47, 0.22);
+}
+
+.sponsors-tier-logo-slot:last-child {
+  border-right: none;
+}
+
+@media (max-width: 560px) {
+  .sponsors-tier-row--3 .sponsors-tier-logo-slot {
+    flex: 1 1 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(74, 124, 47, 0.22);
+    padding: 20px 24px 28px;
+  }
+
+  .sponsors-tier-row--3 .sponsors-tier-logo-slot:last-child {
+    border-bottom: none;
+    padding-bottom: 12px;
+  }
+}
+
+.sponsors-tier-logo-img {
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.06));
+  background-color:transparent;
+}
+
+.sponsors-tier-logo-img--gold {
+  height: clamp(104px, 17vw, 172px);
+  width: auto;
+  max-width: min(100%, 420px);
+}
+
+.sponsors-tier-logo-img--silver {
+  height: clamp(86px, 13.5vw, 124px);
+  width: auto;
+  max-width: min(100%, 350px);
+}
+
+.sponsors-tier-logo-img--bronze {
+  height: clamp(78px, 12.5vw, 112px);
+  width: auto;
+  max-width: min(100%, 320px);
+}
+
+.sponsors-grid-7 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+}
+
+.sponsors-grid-7-row {
+  display: grid;
+  gap: 0;
+  width: 100%;
+}
+
+.sponsors-grid-7-row--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 960px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid rgba(74, 124, 47, 0.2);
+}
+
+.sponsors-grid-7-row--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 800px;
+}
+
+.sponsors-grid-7-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+  padding: 16px 28px;
+}
+
+@media (min-width: 641px) {
+  .sponsors-grid-7-row--4 .sponsors-grid-7-cell:not(:nth-child(4n)) {
+    border-right: 1px solid rgba(74, 124, 47, 0.22);
+  }
+
+  .sponsors-grid-7-row--3 .sponsors-grid-7-cell:not(:nth-child(3n)) {
+    border-right: 1px solid rgba(74, 124, 47, 0.22);
+  }
+}
+
+@media (max-width: 640px) {
+  .sponsors-grid-7-row--4 .sponsors-grid-7-cell:nth-child(odd):not(:last-child) {
+    border-right: 1px solid rgba(74, 124, 47, 0.22);
+  }
+
+  .sponsors-grid-7-row--3 .sponsors-grid-7-cell:nth-child(odd):not(:last-child) {
+    border-right: 1px solid rgba(74, 124, 47, 0.22);
+  }
+}
+
+.sponsors-tier-logo-img--grid {
+  height: clamp(68px, 10vw, 104px);
+  width: auto;
+  max-width: 100%;
+}
+
+.sponsors-grid-7-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.35;
+  max-width: 11rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+@media (max-width: 640px) {
+  .sponsors-grid-7-row--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sponsors-grid-7-row--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
   }
 }
 

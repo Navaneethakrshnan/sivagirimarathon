@@ -27,6 +27,12 @@ const hotelsData = {
       city: 'Sivagiri, Erode',
       link: 'https://maps.app.goo.gl/zz3B5co4ZSQXkeZcA?g_st=ac',
     },
+     {
+      id: 's5',
+      name: 'Sri Krishna Complex',
+      city: 'Sivagiri, Erode',
+      link: 'https://maps.app.goo.gl/hrVfg3ZgJEyqzK5s7',
+    },
   ],
   modakurichi: [
     {

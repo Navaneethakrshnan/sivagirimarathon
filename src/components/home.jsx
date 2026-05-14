@@ -43,6 +43,28 @@ import racePhoto36 from '../assets/photos/race-day/photo36.png';
 import racePhoto37 from '../assets/photos/race-day/photo37.jpg';
 import raceDirectorPhoto from '../assets/photos/team/race-director-nithin.png';
 import routeDirectorPhoto from '../assets/photos/team/route-director-vivek.png';
+import goldsSponsorLogo from '../assets/logo/krishi-removebg-preview.png';  
+import silverSponsorLogo1 from '../assets/logo/blueleaf-removebg-preview.png';
+import silverSponsorLogo2 from '../assets/logo/drprsanth-removebg-preview.png';
+import silverSponsorLogo3 from '../assets/logo/valasumani-removebg-preview.png';
+import physio from '../assets/logo/nandha-removebg-preview.png';
+import grocery from '../assets/logo/svds-removebg-preview.png';
+import snacks from '../assets/logo/maga_removebg-preview.png';
+import community from '../assets/logo/Thamarai.png';
+import Hydration from '../assets/logo/kaaraalan.png';
+import green from '../assets/logo/images-removebg-preview.png';
+import medico from '../assets/logo/psghospitals-removebg-preview.png';
+
+/** Sponsors grid: edit labels here when official names are confirmed */
+const SPONSOR_GRID_ITEMS = [
+  { logo: physio, name: 'Physiotherapy partner' },
+  { logo: snacks, name: 'Snacks partner' },
+  { logo: grocery, name: 'grocery partner' },
+  { logo: community, name: 'community partner' },
+  { logo: Hydration, name: 'Hydration partner' },
+  { logo: green, name: 'Green partner' },
+  { logo: medico, name: 'medical partner' },
+];
 
 const prizeData = {
   full: [
@@ -94,7 +116,7 @@ const faqs = [
   },
   {
     q: 'Any Hotel Near the venue?',
-    a: 'Yes, there are a few hotels within 10 km of the venue with good facilities. You can check and book them online.',
+    a: 'Yes, there are a few hotels within 100 Meters of the venue with good facilities. You can check and book them online.',
   },
 ];
 
@@ -1034,6 +1056,50 @@ const Home = () => {
               >
                 <img src={novaraceLogo} alt="NovaRace" className="sponsors-partner-img sponsors-partner-img--novarace" />
               </a>
+            </div>
+          </div>
+
+          <div className="sponsors-tier-section">
+            <span className="sponsors-tier-kicker">Gold Sponsor</span>
+            <div className="sponsors-tier-single">
+              <img src={goldsSponsorLogo} alt="Gold sponsor" className="sponsors-tier-logo-img sponsors-tier-logo-img--gold" />
+            </div>
+          </div>
+
+          <div className="sponsors-tier-section">
+            <span className="sponsors-tier-kicker">Silver Sponsors</span>
+            <div className="sponsors-tier-row sponsors-tier-row--3">
+              <div className="sponsors-tier-logo-slot">
+                <img src={silverSponsorLogo1} alt="Silver sponsor" className="sponsors-tier-logo-img sponsors-tier-logo-img--silver" />
+              </div>
+              <div className="sponsors-tier-logo-slot">
+                <img src={silverSponsorLogo2} alt="Silver sponsor" className="sponsors-tier-logo-img sponsors-tier-logo-img--silver" />
+              </div>
+              <div className="sponsors-tier-logo-slot">
+                <img src={silverSponsorLogo3} alt="Silver sponsor" className="sponsors-tier-logo-img sponsors-tier-logo-img--silver" />
+              </div>
+            </div>
+          </div>
+
+          <div className="sponsors-tier-section sponsors-tier-section--compact">
+            <span className="sponsors-tier-kicker">Sponsors</span>
+            <div className="sponsors-grid-7" role="list">
+              <div className="sponsors-grid-7-row sponsors-grid-7-row--4" role="presentation">
+                {SPONSOR_GRID_ITEMS.slice(0, 4).map(({ logo, name }) => (
+                  <div className="sponsors-grid-7-cell" role="listitem" key={name}>
+                    <img src={logo} alt={name} className="sponsors-tier-logo-img sponsors-tier-logo-img--grid" />
+                    <span className="sponsors-grid-7-label">{name}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="sponsors-grid-7-row sponsors-grid-7-row--3" role="presentation">
+                {SPONSOR_GRID_ITEMS.slice(4).map(({ logo, name }) => (
+                  <div className="sponsors-grid-7-cell" role="listitem" key={name}>
+                    <img src={logo} alt={name} className="sponsors-tier-logo-img sponsors-tier-logo-img--grid" />
+                    <span className="sponsors-grid-7-label">{name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
