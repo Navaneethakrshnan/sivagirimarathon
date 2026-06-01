@@ -470,7 +470,7 @@ const Home = () => {
             <span className="photo-hero-sub-line">Push your limits along the scenic routes of Sivagiri.</span>
           </p>
           <div className="photo-hero-ctas">
-            <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn photo-hero-btn-primary">Register Now</a>
+            <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn photo-hero-btn-primary">Registration Closed </a>
           </div>
           {/* <div className="photo-hero-daytimer" aria-live="polite">
             <span className="photo-hero-daytimer-label">Registration Opens at 12:00:00 AM</span>
@@ -622,7 +622,7 @@ const Home = () => {
                       <span className="cat-price">{cat.price}</span>
                     </div>
                   </div>
-                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="cat-btn">Register Now →</a>
+                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="cat-btn">Registration Closed →</a>
                 </div>
               </div>
             ))}
@@ -1531,7 +1531,7 @@ const Home = () => {
               <span className="sticky-cat" key={c}>{c}</span>
             ))}
           </div>
-          <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn btn-primary">Register Now →</a>
+          <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn btn-primary">Registration Closed →</a>
         </div>
       </div>
 
