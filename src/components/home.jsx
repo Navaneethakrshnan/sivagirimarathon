@@ -1362,7 +1362,7 @@ const Home = () => {
       )}
 
       {/* ── HOTELS & STAYS ── */}
-      <HotelsStays />
+      {/* <HotelsStays /> */}
 
       {/* ── 12. FAQs ── */}
       <section className="section faq-bg" id="faqs">
