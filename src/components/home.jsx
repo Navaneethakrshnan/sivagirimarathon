@@ -367,7 +367,7 @@ const Home = () => {
 
   const scheduleRows = [
     { activity: 'Early Bird Registration Closes', date: 'Apr 30, 2026', time: '11:59 PM', pill: 'pill-warn', pillText: 'Closing Soon' },
-    { activity: 'General Registration Closes', date: 'Jun 10, 2026', time: '11:59 PM', pill: 'pill-green', pillText: 'Open' },
+    { activity: 'General Registration Closes', date: 'May 31, 2026', time: '11:59 PM', pill: 'pill-green', pillText: 'Open' },
     { activity: 'Race Expo — Day (BIB Collection)', date: 'Jun 20, 2026', time: '10:00 AM – 7:00 PM', pill: 'pill-green', pillText: 'Open' },
     { activity: 'Full Marathon Flag Off', date: 'Jun 21, 2026', time: '4:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
     { activity: 'Half Marathon Flag Off', date: 'Jun 21, 2026', time: '5:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
