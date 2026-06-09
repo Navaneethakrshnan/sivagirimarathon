@@ -2,46 +2,21 @@ import { useState } from 'react';
 import './HotelsStays.css';
 
 const hotelsData = {
-  sivagiri: [
+  Muthur : [
     {
       id: 's1',
-      name: 'SRI AMMAN TOWERS ( A/C and NON A/C Rooms)',
-      city: 'Sivagiri, Erode',
-      link: 'https://maps.app.goo.gl/rBKAxrp91vQRTS5J8',
+      name: 'Thirukumaran',
+      city: 'Muthur, Erode',
+      link: 'https://maps.app.goo.gl/tSBJGEE8GCzDsyo19',
     },
     {
       id: 's2',
-      name: 'Aadhavan Rooms For Rent',
-      city: 'Sivagiri, Erode',
-      link: 'https://maps.app.goo.gl/FdS6oZWqYaywVjmo6?g_st=ac',
-    },
-    {
-      id: 's3',
-      name: 'Sangamam Mahal',
-      city: 'Sivagiri, Erode',
-      link: 'https://maps.app.goo.gl/L6o2Gmah77Cc2Jte9?g_st=ac',
-    },
-    {
-      id: 's4',
-      name: 'Anu Hospital',
-      city: 'Sivagiri, Erode',
-      link: 'https://maps.app.goo.gl/zz3B5co4ZSQXkeZcA?g_st=ac',
-    },
-     {
-      id: 's5',
-      name: 'Sri Krishna Complex',
-      city: 'Sivagiri, Erode',
-      link: 'https://maps.app.goo.gl/hrVfg3ZgJEyqzK5s7',
+      name: 'Sastha Mahal',
+      city: 'Muthur, Erode',
+      link: 'https://maps.app.goo.gl/7aNaxWUfL2qeZtDP6',
     },
   ],
-  modakurichi: [
-    {
-      id: 's1',
-      name: 'AVS Resort',
-      city: 'Velampalayam, Modakurichi Erode',
-      link: 'https://maps.app.goo.gl/m6QKXVH8SMve8Nij7?g_st=aw',
-    },
-  ],
+ 
   kodumudi: [
     {
       id: 'k1',
@@ -51,9 +26,9 @@ const hotelsData = {
     },
     {
       id: 'k2',
-      name: 'Aadvin Hotel',
+      name: 'HariRam Residency',
       city: 'Kodumudi, Erode',
-      link: 'https://maps.app.goo.gl/ym5M4K7RaBdwzLnt6?g_st=aw',
+      link: 'https://maps.app.goo.gl/bVWVQoxjukZPRDo38',
     },
     {
       id: 'k3',
@@ -65,8 +40,7 @@ const hotelsData = {
 };
 
 const tabs = [
-  { key: 'sivagiri', label: 'Sivagiri', emoji: '🏨' },
-  { key: 'modakurichi', label: 'Modakurichi', emoji: '🏨' },
+  { key: 'Muthur', label: 'Muthur', emoji: '🏨' },
   { key: 'kodumudi', label: 'Kodumudi', emoji: '🏨' },
 ];
 
@@ -115,7 +89,7 @@ const HotelCard = ({ hotel, index }) => (
 );
 
 const HotelsStays = () => {
-  const [activeTab, setActiveTab] = useState('sivagiri');
+  const [activeTab, setActiveTab] = useState('Muthur');
 
   const hotels = hotelsData[activeTab] || [];
 

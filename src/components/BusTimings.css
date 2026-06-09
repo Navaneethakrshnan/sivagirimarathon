@@ -1,0 +1,240 @@
+/* ─── BUS & TRAVEL TIMINGS SECTION ─────────────────────── */
+
+.bus-section {
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.bus-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(74, 124, 47, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 0% 0%, rgba(74, 124, 47, 0.04) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.bus-header {
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Image card wrapper ── */
+.bus-image-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.bus-image-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  padding: 10px;
+  background: #ffffff;
+  border: 1.5px solid rgba(74, 124, 47, 0.18);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.10);
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  overflow: hidden;
+}
+
+.bus-image-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 44px rgba(74, 124, 47, 0.22);
+  border-color: var(--green);
+}
+
+.bus-image-card:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+.bus-image {
+  display: block;
+  width: 100%;
+  height: 360px;
+  border-radius: calc(var(--radius-lg) - 4px);
+  object-fit: cover;
+  object-position: top center;
+}
+
+.bus-image-card::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  height: 90px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.85) 70%,
+    rgba(255, 255, 255, 0.98) 100%
+  );
+  border-radius: 0 0 calc(var(--radius-lg) - 4px) calc(var(--radius-lg) - 4px);
+  pointer-events: none;
+}
+
+.bus-image-zoom {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  transition: transform 0.22s ease, background 0.22s ease;
+}
+
+.bus-image-card:hover .bus-image-zoom {
+  background: var(--green);
+  transform: scale(1.04);
+}
+
+.bus-image-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+  padding: 10px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 720px;
+  text-align: center;
+}
+
+.bus-image-note svg {
+  color: var(--amber);
+  flex-shrink: 0;
+}
+
+/* ── Lightbox ── */
+.bus-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+  animation: busLightFade 0.22s ease;
+  cursor: zoom-out;
+}
+
+@keyframes busLightFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.bus-lightbox-inner {
+  position: relative;
+  max-width: 96vw;
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  animation: busLightZoom 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+  overflow: auto;
+}
+
+@keyframes busLightZoom {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.bus-lightbox-img {
+  display: block;
+  max-width: 96vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+}
+
+.bus-lightbox-close {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s ease, background 0.18s ease;
+  z-index: 10000;
+}
+
+.bus-lightbox-close:hover {
+  transform: rotate(90deg) scale(1.05);
+  background: #ffffff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .bus-image-card {
+    padding: 8px;
+  }
+
+  .bus-image {
+    height: 280px;
+  }
+
+  .bus-image-zoom {
+    right: 12px;
+    bottom: 12px;
+    padding: 7px 11px;
+    font-size: 0.72rem;
+  }
+
+  .bus-image-zoom span {
+    display: none;
+  }
+
+  .bus-image-note {
+    font-size: 0.72rem;
+    padding: 8px 12px;
+  }
+
+  .bus-lightbox-close {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+}

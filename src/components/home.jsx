@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './home.css';
 import HotelsStays from './HotelsStays';
+import BusTimings from './BusTimings';
+import Transports from './Transports';
 import marathonLogo from '../assets/sivagirirunners2026Finallogo.png';
 import runnersLogo from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
@@ -405,6 +407,8 @@ const Home = () => {
           <li><a href="#results">Prevoius Year Results</a></li>
           {/* <li><a href="#prizes">Prizes</a></li> */}
           <li><a href="#hotels">Hotels</a></li>
+          <li><a href="#buses">Buses</a></li>
+          <li><a href="#transports">Transport</a></li>
           <li><a href="#faqs">FAQs</a></li>
         </ul>
         <div className="nav-runners-wrap">
@@ -1126,6 +1130,15 @@ const Home = () => {
           </div> */}
       </section>
 
+       {/* ── HOTELS & STAYS ── */}
+      <HotelsStays />
+
+      {/* ── BUS & TRAVEL TIMINGS ── */}
+      <BusTimings />
+
+      {/* ── TRANSPORT CONTACTS ── */}
+      <Transports />
+
       {/* ── 11. RESULTS ── */}
       <section className="section results-bg" id="results">
         <div className="container">
@@ -1301,6 +1314,9 @@ const Home = () => {
         </div>
       </section>
 
+
+       
+
       {/* ── 12. GALLERY ── */}
       <section className="section" id="gallery">
         <div className="container">
@@ -1361,8 +1377,7 @@ const Home = () => {
         </div>
       )}
 
-      {/* ── HOTELS & STAYS ── */}
-      {/* <HotelsStays /> */}
+    
 
       {/* ── 12. FAQs ── */}
       <section className="section faq-bg" id="faqs">
