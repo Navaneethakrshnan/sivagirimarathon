@@ -400,7 +400,7 @@ const Home = () => {
           }}
         >
           <li><a href="#about">About</a></li>
-          <li><a href="#categories">Categories</a></li>
+          {/* <li><a href="#categories">Categories</a></li> */}
           <li><a href="#team">Team</a></li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#expo">Expo</a></li>
@@ -489,7 +489,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── FOUNDER STRIP ── */}
+   {/* ── FOUNDER STRIP ── */}
       <div className="founder-strip">
         <div className="founder-strip-inner">
           <span className="founder-text">Sivagiri Runners</span>
@@ -498,213 +498,6 @@ const Home = () => {
           <span className="founder-attr">— Founders, Sivagiri Runners</span>
         </div>
       </div>
-
-      {/* ── 2. HIGHLIGHTS ── */}
-      <section className="section" id="highlights">
-        <div className="container">
-          <div className="highlights-header-row">
-            <div>
-              <div className="eyebrow">What You Get</div>
-              <h2 className="section-title">Race Day <em>Highlights</em></h2>
-              <p className="section-sub">Everything that makes Sivagiri Marathon the most awaited runner's celebration in Tamil Nadu.</p>
-            </div>
-            <button className="highlights-arrow-btn" onClick={handleNextCarousel} aria-label="Next Highlight">
-              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          </div>
-          <div className="highlights-carousel-wrapper">
-            <div className="highlights-carousel" ref={carouselRef}>
-              {[...highlights, ...highlights].map(({ icon, label, sub }, idx) => (
-                <div className="highlight-item" key={`${label}-${idx}`}>
-                  <div className="hi-icon-wrapper">
-                    <span className="hi-icon">{icon}</span>
-                  </div>
-                  <span className="hi-label">{label}</span>
-                  <span className="hi-sub">{sub}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 3. ABOUT ── */}
-      <section className="section" id="about">
-        <div className="container">
-          <div className="eyebrow">Our Story</div>
-          <div className="about-layout">
-            <div className="about-text">
-              <h2 className="section-title">About <em>Sivagiri Marathon</em></h2>
-              <p style={{ marginTop: '24px' }}>
-                Sivagiri Marathon is more than just a race — it is a movement driven by passion, community, and purpose. Conceptualized and promoted by {' '}
-                <strong style={{ color: 'var(--cream)' }}>Sivagiri Runners, </strong> the event proudly stands by its philosophy:
-              </p>
-              <b>“By the Runners, For the Runners.”</b>
-              <br />
-              <p>At Sivagiri Marathon, runners experience the best of both worlds — the <strong style={{ color: 'var(--cream)' }}>raw beauty of village landscapes</strong> combined with the <strong style={{ color: 'var(--cream)' }}>professional standards of a city marathon.</strong></p>
-
-              <div className="about-pullquote">
-                <div className="about-pullquote-text">"We didn't build this for sponsors or glory — we built it because we wanted a race we'd love to run ourselves."</div>
-                <div className="about-pullquote-attr">— Sivagiri Runners</div>
-              </div>
-
-              <p>From scenic routes and close-knit community support to well-organized race execution and thoughtful runner amenities, every detail is crafted to ensure participants enjoy the same excitement, pride, and perks typically found in big-city events.</p>
-
-              <p>Since its inception in 2022, the event has grown steadily and now proudly enters its  <strong style={{ color: 'var(--cream)' }}>4th edition, </strong> with each year bringing<strong style={{ color: 'var(--cream)' }}>new enhancements, better experiences, and stronger community participation.</strong></p>
-
-              <div className="about-stats">
-                {[
-                  { num: '4th', label: 'Edition, 2026' },
-                  { num: '5', label: 'Race Distances' },
-                  { num: '1.5K+', label: 'Expected Runners' },
-                  { num: '100%', label: 'Runner-organised' },
-                ].map(({ num, label }) => (
-                  <div className="about-stat" key={label}>
-                    <div className="about-stat-num">{num}</div>
-                    <div className="about-stat-label">{label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="about-visual about-quad">
-              <div className="about-img about-img-1">
-                <img src={racePhoto34} alt="Race Day" />
-              </div>
-              <div className="about-img about-img-2">
-                <img src={racePhoto35} alt="Start Line" />
-              </div>
-              <div className="about-img about-img-3">
-                <img src={racePhoto36} alt="Volunteers" />
-              </div>
-              <div className="about-img about-img-4">
-                <img src={racePhoto37} alt="Finish Line" />
-              </div>
-              <div className="about-badge">
-                <div className="about-badge-num">4</div>
-                <div className="about-badge-text">Years of<br />Running</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ── 4. RACE CATEGORIES ── */}
-      <section className="section race-cats-bg" id="categories">
-        <div className="container">
-          <div className="cats-intro">
-            <div>
-              <div className="eyebrow">Find Your Distance</div>
-              <h2 className="section-title">Race <em>Categories</em></h2>
-              <p className="section-sub">Five distances for every kind of runner — from first-timers to seasoned marathoners.</p>
-            </div>
-          </div>
-          <div className="cats-grid">
-            {[
-              { dist: '42.2', unit: 'KM', name: 'Full Marathon', flagship: true, start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours', price: '₹999', theme: 'cat-theme-dark' },
-              { dist: '21.1', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours', price: '₹899', theme: 'cat-theme-green' },
-              { dist: '10', unit: 'KM', name: 'Road Race', flagship: false, start: '6:00 AM', elig: '10+ Yrs', cutoff: '90 Mins', price: '₹799', theme: 'cat-theme-gold' },
-              { dist: '5', unit: 'KM', name: 'Timed Challenge', flagship: false, start: '6:20 AM', elig: '8+ Yrs', cutoff: '75 Mins', price: '₹699', theme: 'cat-theme-grey' },
-              { dist: '3', unit: 'KM', name: 'Fun Run', flagship: false, start: '7:00 AM', elig: '3–100 Yrs', cutoff: '-', price: '₹499', theme: 'cat-theme-fun' },
-            ].map((cat) => (
-              <div className={`cat-card ${cat.theme}`} key={cat.name}>
-                <div className="cat-card-top">
-                  {cat.flagship && <span className="flagship-tag">Flagship</span>}
-                  <div className="cat-dist">{cat.dist}<span>{cat.unit}</span></div>
-                  <div className="cat-name">{cat.name}</div>
-                </div>
-                <div className="cat-body">
-                  <div className="cat-row"><span className="cat-row-l">Start Time</span><span className="cat-row-r">{cat.start}</span></div>
-                  <div className="cat-row"><span className="cat-row-l">Eligibility</span><span className="cat-row-r">{cat.elig}</span></div>
-                  <div className="cat-row"><span className="cat-row-l">Cut-off</span><span className="cat-row-r">{cat.cutoff}</span></div>
-                </div>
-                <div className="cat-footer">
-                  <div className="cat-price-block">
-                    <div className="cat-price-row">
-                      <span className="cat-original-price">{cat.originalPrice}</span>
-                      <span className="cat-price">{cat.price}</span>
-                    </div>
-                  </div>
-                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="cat-btn">Registration Closed →</a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── MEET OUR TEAM ── */}
-      <section className="section team-section" id="team">
-        <div className="container">
-          <div className="eyebrow">The People</div>
-          <h2 className="section-title">Meet Our <em>Team</em></h2>
-          <div className="team-split">
-            {teamMembers.slice(0, 2).map(({ photo, name, designation, bio }, i) => (
-              <article className="team-card" key={`team-${i}`}>
-                <div className="team-photo-wrap">
-                  <img src={photo} alt={`${name}, ${designation}`} className="team-photo" />
-                </div>
-                <h3 className="team-name">{name}</h3>
-                <p className="team-designation">{designation}</p>
-                <p className="team-bio">{bio}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. COURSE MAP ── */}
-      {/* <section className="section" id="map">
-        <div className="container">
-          <div className="eyebrow">The Route</div>
-          <div className="sec-header">
-            <div>
-              <h2 className="section-title">Race Course <em>Map</em></h2>
-              <p className="section-sub">Through the misty hills and scenic trails of Sivagiri — a course that rewards every step.</p>
-            </div>
-            <a href="#" className="btn btn-ghost" style={{ flexShrink: 0 }}>
-              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
-              Download GPX
-            </a>
-          </div>
-          <div className="course-wrap">
-            <div className="map-box">
-              <div className="map-inner">
-                <span className="map-icon">🏔️</span>
-                <span className="map-label">Sivagiri Marathon Course</span>
-                <span className="map-sub">Google Maps embed · Start at Sivagiri Mutt Grounds → Hills Loop → Riverside stretch → Finish Line</span>
-                <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ marginTop: '10px', padding: '10px 20px', fontSize: '.78rem' }}>Open in Google Maps →</a>
-              </div>
-            </div>
-            <div className="course-sidebar">
-              {[
-                { label: 'Start / Finish',   val: 'Sivagiri Mutt Grounds, Sivagiri' },
-                { label: 'Course Type',      val: 'Rolling Hills · Paved Road' },
-                { label: 'Aid Stations',     val: 'Every 2.5 KM' },
-                { label: 'Timing Points',    val: 'Start · 10K · 21.1KM · 32K · Finish' },
-              ].map(({ label, val }) => (
-                <div className="crs-card" key={label}>
-                  <div className="crs-card-label">{label}</div>
-                  <div className="crs-card-val">{val}</div>
-                </div>
-              ))}
-              <div className="crs-card">
-                <div className="crs-card-label">Terrain Elevation Profile</div>
-                <div className="elevation-chart">
-                  {elevationHeights.map((h, i) => (
-                    <div className="el-col" key={i} style={{ height: `${h}%` }}></div>
-                  ))}
-                </div>
-                <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: '.52rem', color: 'var(--muted)', marginTop: '7px' }}>
-                  Total Gain ≈ 210m · Rolling terrain
-                </div>
-              </div>
-              <a href="#" className="btn btn-ghost" style={{ textAlign: 'center', justifyContent: 'center' }}>View on Strava →</a>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* ── 6. SCHEDULE ── */}
       <section className="section schedule-bg" id="schedule">
@@ -734,7 +527,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── 7. EXPO ── */}
+      
+      {/* ── 2b. RACE EXPO (moved up alongside Race Day Highlights) ── */}
       <section className="section expo-bg" id="expo">
         <div className="container" style={{ position: 'relative' }}>
           <div className="eyebrow" style={{ color: '#b9ccaf', letterSpacing: '0.15em', fontWeight: 700 }}>| BIB COLLECTION</div>
@@ -812,7 +606,232 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── 8. RUNNER ARMORY ── */}
+      {/* ── HOTELS & STAYS ── */}
+      <HotelsStays />
+
+         {/* ── BUS & TRAVEL TIMINGS ── */}
+      <BusTimings />
+
+      {/* ── TRANSPORT CONTACTS ── */}
+      <Transports />
+
+      {/* ── 2. HIGHLIGHTS ── */}
+      <section className="section" id="highlights">
+        <div className="container">
+          <div className="highlights-header-row">
+            <div>
+              <div className="eyebrow">What You Get</div>
+              <h2 className="section-title">Race Day <em>Highlights</em></h2>
+              <p className="section-sub">Everything that makes Sivagiri Marathon the most awaited runner's celebration in Tamil Nadu.</p>
+            </div>
+            <button className="highlights-arrow-btn" onClick={handleNextCarousel} aria-label="Next Highlight">
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div className="highlights-carousel-wrapper">
+            <div className="highlights-carousel" ref={carouselRef}>
+              {[...highlights, ...highlights].map(({ icon, label, sub }, idx) => (
+                <div className="highlight-item" key={`${label}-${idx}`}>
+                  <div className="hi-icon-wrapper">
+                    <span className="hi-icon">{icon}</span>
+                  </div>
+                  <span className="hi-label">{label}</span>
+                  <span className="hi-sub">{sub}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+
+      {/* ── 3. ABOUT ── */}
+      <section className="section" id="about">
+        <div className="container">
+          <div className="eyebrow">Our Story</div>
+          <div className="about-layout">
+            <div className="about-text">
+              <h2 className="section-title">About <em>Sivagiri Marathon</em></h2>
+              <p style={{ marginTop: '24px' }}>
+                Sivagiri Marathon is more than just a race — it is a movement driven by passion, community, and purpose. Conceptualized and promoted by {' '}
+                <strong style={{ color: 'var(--cream)' }}>Sivagiri Runners, </strong> the event proudly stands by its philosophy:
+              </p>
+              <b>“By the Runners, For the Runners.”</b>
+              <br />
+              <p>At Sivagiri Marathon, runners experience the best of both worlds — the <strong style={{ color: 'var(--cream)' }}>raw beauty of village landscapes</strong> combined with the <strong style={{ color: 'var(--cream)' }}>professional standards of a city marathon.</strong></p>
+
+              <div className="about-pullquote">
+                <div className="about-pullquote-text">"We didn't build this for sponsors or glory — we built it because we wanted a race we'd love to run ourselves."</div>
+                <div className="about-pullquote-attr">— Sivagiri Runners</div>
+              </div>
+
+              <p>From scenic routes and close-knit community support to well-organized race execution and thoughtful runner amenities, every detail is crafted to ensure participants enjoy the same excitement, pride, and perks typically found in big-city events.</p>
+
+              <p>Since its inception in 2022, the event has grown steadily and now proudly enters its  <strong style={{ color: 'var(--cream)' }}>4th edition, </strong> with each year bringing<strong style={{ color: 'var(--cream)' }}>new enhancements, better experiences, and stronger community participation.</strong></p>
+
+              <div className="about-stats">
+                {[
+                  { num: '4th', label: 'Edition, 2026' },
+                  { num: '5', label: 'Race Distances' },
+                  { num: '1.5K+', label: 'Expected Runners' },
+                  { num: '100%', label: 'Runner-organised' },
+                ].map(({ num, label }) => (
+                  <div className="about-stat" key={label}>
+                    <div className="about-stat-num">{num}</div>
+                    <div className="about-stat-label">{label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="about-visual about-quad">
+              <div className="about-img about-img-1">
+                <img src={racePhoto34} alt="Race Day" />
+              </div>
+              <div className="about-img about-img-2">
+                <img src={racePhoto35} alt="Start Line" />
+              </div>
+              <div className="about-img about-img-3">
+                <img src={racePhoto36} alt="Volunteers" />
+              </div>
+              <div className="about-img about-img-4">
+                <img src={racePhoto37} alt="Finish Line" />
+              </div>
+              <div className="about-badge">
+                <div className="about-badge-num">4</div>
+                <div className="about-badge-text">Years of<br />Running</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ── 4. RACE CATEGORIES (hidden) ── */}
+      {false && (
+      <section className="section race-cats-bg" id="categories">
+        <div className="container">
+          <div className="cats-intro">
+            <div>
+              <div className="eyebrow">Find Your Distance</div>
+              <h2 className="section-title">Race <em>Categories</em></h2>
+              <p className="section-sub">Five distances for every kind of runner — from first-timers to seasoned marathoners.</p>
+            </div>
+          </div>
+          <div className="cats-grid">
+            {[
+              { dist: '42.2', unit: 'KM', name: 'Full Marathon', flagship: true, start: '4:00 AM', elig: '18+ Yrs', cutoff: '6 Hours', price: '₹999', theme: 'cat-theme-dark' },
+              { dist: '21.1', unit: 'KM', name: 'Half Marathon', flagship: false, start: '5:00 AM', elig: '18+ Yrs', cutoff: '4 Hours', price: '₹899', theme: 'cat-theme-green' },
+              { dist: '10', unit: 'KM', name: 'Road Race', flagship: false, start: '6:00 AM', elig: '10+ Yrs', cutoff: '90 Mins', price: '₹799', theme: 'cat-theme-gold' },
+              { dist: '5', unit: 'KM', name: 'Timed Challenge', flagship: false, start: '6:20 AM', elig: '8+ Yrs', cutoff: '75 Mins', price: '₹699', theme: 'cat-theme-grey' },
+              { dist: '3', unit: 'KM', name: 'Fun Run', flagship: false, start: '7:00 AM', elig: '3–100 Yrs', cutoff: '-', price: '₹499', theme: 'cat-theme-fun' },
+            ].map((cat) => (
+              <div className={`cat-card ${cat.theme}`} key={cat.name}>
+                <div className="cat-card-top">
+                  {cat.flagship && <span className="flagship-tag">Flagship</span>}
+                  <div className="cat-dist">{cat.dist}<span>{cat.unit}</span></div>
+                  <div className="cat-name">{cat.name}</div>
+                </div>
+                <div className="cat-body">
+                  <div className="cat-row"><span className="cat-row-l">Start Time</span><span className="cat-row-r">{cat.start}</span></div>
+                  <div className="cat-row"><span className="cat-row-l">Eligibility</span><span className="cat-row-r">{cat.elig}</span></div>
+                  <div className="cat-row"><span className="cat-row-l">Cut-off</span><span className="cat-row-r">{cat.cutoff}</span></div>
+                </div>
+                <div className="cat-footer">
+                  <div className="cat-price-block">
+                    <div className="cat-price-row">
+                      <span className="cat-original-price">{cat.originalPrice}</span>
+                      <span className="cat-price">{cat.price}</span>
+                    </div>
+                  </div>
+                  <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="cat-btn">Registration Closed →</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* ── MEET OUR TEAM ── */}
+      <section className="section team-section" id="team">
+        <div className="container">
+          <div className="eyebrow">The People</div>
+          <h2 className="section-title">Meet Our <em>Team</em></h2>
+          <div className="team-split">
+            {teamMembers.slice(0, 2).map(({ photo, name, designation, bio }, i) => (
+              <article className="team-card" key={`team-${i}`}>
+                <div className="team-photo-wrap">
+                  <img src={photo} alt={`${name}, ${designation}`} className="team-photo" />
+                </div>
+                <h3 className="team-name">{name}</h3>
+                <p className="team-designation">{designation}</p>
+                <p className="team-bio">{bio}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. COURSE MAP ── */}
+      {/* <section className="section" id="map">
+        <div className="container">
+          <div className="eyebrow">The Route</div>
+          <div className="sec-header">
+            <div>
+              <h2 className="section-title">Race Course <em>Map</em></h2>
+              <p className="section-sub">Through the misty hills and scenic trails of Sivagiri — a course that rewards every step.</p>
+            </div>
+            <a href="#" className="btn btn-ghost" style={{ flexShrink: 0 }}>
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
+              Download GPX
+            </a>
+          </div>
+          <div className="course-wrap">
+            <div className="map-box">
+              <div className="map-inner">
+                <span className="map-icon">🏔️</span>
+                <span className="map-label">Sivagiri Marathon Course</span>
+                <span className="map-sub">Google Maps embed · Start at Sivagiri Mutt Grounds → Hills Loop → Riverside stretch → Finish Line</span>
+                <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ marginTop: '10px', padding: '10px 20px', fontSize: '.78rem' }}>Open in Google Maps →</a>
+              </div>
+            </div>
+            <div className="course-sidebar">
+              {[
+                { label: 'Start / Finish',   val: 'Sivagiri Mutt Grounds, Sivagiri' },
+                { label: 'Course Type',      val: 'Rolling Hills · Paved Road' },
+                { label: 'Aid Stations',     val: 'Every 2.5 KM' },
+                { label: 'Timing Points',    val: 'Start · 10K · 21.1KM · 32K · Finish' },
+              ].map(({ label, val }) => (
+                <div className="crs-card" key={label}>
+                  <div className="crs-card-label">{label}</div>
+                  <div className="crs-card-val">{val}</div>
+                </div>
+              ))}
+              <div className="crs-card">
+                <div className="crs-card-label">Terrain Elevation Profile</div>
+                <div className="elevation-chart">
+                  {elevationHeights.map((h, i) => (
+                    <div className="el-col" key={i} style={{ height: `${h}%` }}></div>
+                  ))}
+                </div>
+                <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: '.52rem', color: 'var(--muted)', marginTop: '7px' }}>
+                  Total Gain ≈ 210m · Rolling terrain
+                </div>
+              </div>
+              <a href="#" className="btn btn-ghost" style={{ textAlign: 'center', justifyContent: 'center' }}>View on Strava →</a>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      
+
+      {/* ── 7. EXPO ── moved up next to Race Day Highlights ── */}
+
+      {/* ── 8. RUNNER ARMORY (hidden) ── */}
+      {false && (
       <section className="section armory-bg" id="entitlements">
         <div className="container" style={{ position: 'relative', zIndex: 1, paddingBottom: '60px' }}>
 
@@ -974,6 +993,8 @@ const Home = () => {
 
         </div>
       </section>
+      )}
+
 
       {/* ── 9. PRIZES ── */}
       {/*  <section className="section" id="prizes">
@@ -1130,14 +1151,7 @@ const Home = () => {
           </div> */}
       </section>
 
-       {/* ── HOTELS & STAYS ── */}
-      <HotelsStays />
-
-      {/* ── BUS & TRAVEL TIMINGS ── */}
-      <BusTimings />
-
-      {/* ── TRANSPORT CONTACTS ── */}
-      <Transports />
+    
 
       {/* ── 11. RESULTS ── */}
       <section className="section results-bg" id="results">
@@ -1563,7 +1577,7 @@ const Home = () => {
               <div className="footer-col-title">Event</div>
               <ul className="footer-links">
                 <li><a href="#about">About the Race</a></li>
-                <li><a href="#categories">Categories</a></li>
+                {/* <li><a href="#categories">Categories</a></li> */}
                 <li><a href="#schedule">Schedule</a></li>
                 <li><a href="#map">Course Map</a></li>
                 <li><a href="#expo">Race Expo</a></li>
@@ -1573,7 +1587,7 @@ const Home = () => {
               <div className="footer-col-title">Race Info</div>
               <ul className="footer-links">
                 <li><a href="#prizes">Prizes</a></li>
-                <li><a href="#entitlements">Race Kit</a></li>
+                {/* <li><a href="#entitlements">Race Kit</a></li> */}
                 <li><a href="#safety">Safety</a></li>
                 <li><a href="#faqs">FAQs</a></li>
                 <li><a href="#terms">Policies</a></li>

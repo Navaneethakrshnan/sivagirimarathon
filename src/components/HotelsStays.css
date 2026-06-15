@@ -317,9 +317,72 @@
   color: var(--green);
 }
 
-/* Right: View button */
+/* Mobile number link */
+.hotel-card-mobile {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--muted2);
+  text-decoration: none;
+  margin-top: 2px;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.hotel-card-mobile:hover {
+  color: var(--green);
+}
+
+.hotel-card-mobile svg {
+  flex-shrink: 0;
+  color: var(--green);
+}
+
+/* Right: action buttons */
 .hotel-card-action {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Call button */
+.hotel-call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 100px;
+  border: 1.5px solid var(--green);
+  background: var(--green);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  white-space: nowrap;
+}
+
+.hotel-call-btn:hover {
+  background: var(--green-lt, var(--green));
+  border-color: var(--green-lt, var(--green));
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(74, 124, 47, 0.34);
+}
+
+.hotel-call-btn svg {
+  transition: transform 0.22s ease;
+}
+
+.hotel-call-btn:hover svg {
+  transform: rotate(10deg);
 }
 
 .hotel-view-btn {
@@ -413,6 +476,19 @@
   }
 }
 
+@media (max-width: 700px) {
+  .hotel-card {
+    flex-wrap: wrap;
+  }
+
+  .hotel-card-action {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+  }
+}
+
 @media (max-width: 480px) {
   .hotels-tabs {
     flex-direction: column;
@@ -423,15 +499,18 @@
     width: 100%;
   }
 
-  .hotel-view-btn span {
-    display: none;
+  .hotel-card-action {
+    justify-content: stretch;
   }
 
+  .hotel-call-btn,
   .hotel-view-btn {
-    padding: 9px 12px;
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
+    flex: 1;
     justify-content: center;
+    padding: 10px 14px;
+  }
+
+  .hotel-card-mobile {
+    font-size: 0.72rem;
   }
 }
