@@ -725,6 +725,305 @@ body::after {
   transition: background .2s, transform .2s, box-shadow .2s;
 }
 
+/* ─── HERO CATEGORY POSTERS (scrollable strip) ─────────── */
+.hero-cats-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.hero-cats-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  padding-left: 2px;
+}
+
+.hero-cats-track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 4px;
+  padding: 4px 4px 12px;
+  margin: 0 -4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero-cats-track::-webkit-scrollbar {
+  height: 5px;
+}
+
+.hero-cats-track::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.hero-cats-track::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.38);
+  border-radius: 10px;
+}
+
+.hero-cats-track::-webkit-scrollbar-thumb:hover {
+  background: var(--green);
+}
+
+.hero-cat-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 130px;
+  aspect-ratio: 2 / 3;
+  border: none;
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: zoom-in;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  scroll-snap-align: start;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-cat-card:hover,
+.hero-cat-card:focus-visible {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.42);
+  outline: none;
+}
+
+.hero-cat-card:focus-visible {
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.42), 0 0 0 3px var(--green);
+}
+
+.hero-cat-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero-cat-card:hover img {
+  transform: scale(1.06);
+}
+
+.hero-cat-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  color: #ffffff;
+  text-align: left;
+  pointer-events: none;
+}
+
+.hero-cat-dist {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--green-lt, #b8e89a);
+}
+
+.hero-cat-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+/* ── Lightbox ── */
+.hero-cat-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+  animation: heroCatFade 0.22s ease;
+  cursor: zoom-out;
+}
+
+@keyframes heroCatFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-cat-lightbox-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 90vw;
+  max-height: 92vh;
+  cursor: default;
+  animation: heroCatZoom 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+@keyframes heroCatZoom {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.hero-cat-lightbox-img {
+  display: block;
+  max-width: 90vw;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  background: #111;
+}
+
+.hero-cat-lightbox-caption {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+}
+
+.hero-cat-lightbox-dist {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--green-lt, #b8e89a);
+}
+
+.hero-cat-lightbox-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.hero-cat-lightbox-count {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hero-cat-lightbox-close {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.94);
+  color: #111;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  transition: transform 0.18s ease, background 0.18s ease;
+  z-index: 10000;
+}
+
+.hero-cat-lightbox-close:hover {
+  transform: rotate(90deg) scale(1.06);
+  background: #ffffff;
+}
+
+.hero-cat-lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: transform 0.18s ease, background 0.18s ease;
+  z-index: 10000;
+}
+
+.hero-cat-lightbox-nav:hover {
+  background: var(--green);
+  border-color: var(--green);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.hero-cat-lightbox-nav.prev { left: 18px; }
+.hero-cat-lightbox-nav.next { right: 18px; }
+
+@media (max-width: 600px) {
+  .hero-cat-card {
+    width: 110px;
+    border-radius: 12px;
+  }
+
+  .hero-cat-dist { font-size: 0.62rem; }
+  .hero-cat-label { font-size: 0.72rem; }
+
+  .hero-cat-lightbox-nav {
+    width: 42px;
+    height: 42px;
+    font-size: 1.6rem;
+  }
+
+  .hero-cat-lightbox-nav.prev { left: 8px; }
+  .hero-cat-lightbox-nav.next { right: 8px; }
+
+  .hero-cat-lightbox-close {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.05rem;
+  }
+
+  .hero-cat-lightbox-caption {
+    gap: 10px;
+    padding: 6px 14px;
+  }
+}
+
 .photo-hero-btn-primary:hover {
   background: var(--green-lt);
   transform: translateY(-2px);

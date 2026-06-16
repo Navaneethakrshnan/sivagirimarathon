@@ -3,11 +3,11 @@ import './home.css';
 import HotelsStays from './HotelsStays';
 import BusTimings from './BusTimings';
 import Transports from './Transports';
+import RouteMaps from './RouteMaps';
 import marathonLogo from '../assets/sivagirirunners2026Finallogo.png';
 import runnersLogo from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
 import magnTitleSponsorLogo from '../assets/magn-clothing-title-sponsor.png';
-import heroImg from '../assets/hero-bg.png';
 import racePhoto1 from '../assets/photos/race-day/photo1.png';
 import racePhoto2 from '../assets/photos/race-day/photo2.png';
 import racePhoto3 from '../assets/photos/race-day/photo3.png';
@@ -140,12 +140,6 @@ const CheckIcon = () => (
     <polyline points="20 6 9 17 4 12" />
   </svg>
 );
-
-/** Extra hero confetti: star, ribbon, ring, etc. (see `.photo-hero-popper--*` in home.css) */
-const HERO_POPPER_DESIGNS = [
-  'star', 'diamond', 'ring', 'ribbon', 'streamer', 'burst', 'curl',
-  'star', 'diamond', 'ring', 'ribbon', 'streamer', 'burst', 'curl', 'star',
-];
 
 /** In dev, use Vite proxy (`vite.config.js`) so the results API is not blocked by CORS. */
 const NOVARACE_API_BASE = import.meta.env.DEV ? '/api/novarace' : 'https://api.novarace.in';
@@ -369,13 +363,13 @@ const Home = () => {
 
   const scheduleRows = [
     { activity: 'Early Bird Registration Closes', date: 'Apr 30, 2026', time: '11:59 PM', pill: 'pill-warn', pillText: 'Closing Soon' },
-    { activity: 'General Registration Closes', date: 'May 31, 2026', time: '11:59 PM', pill: 'pill-green', pillText: 'Open' },
-    { activity: 'Race Expo — Day (BIB Collection)', date: 'Jun 20, 2026', time: '10:00 AM – 7:00 PM', pill: 'pill-green', pillText: 'Open' },
+    { activity: 'General Registration Closes', date: 'May 31, 2026', time: '11:59 PM', pill: 'pill-warn', pillText: 'Closed' },
+    { activity: 'Race Expo — Day (BIB Collection)', date: 'Jun 20, 2026', time: '10:00 AM – 6:00 PM', pill: 'pill-warn', pillText: 'Closed' },
     { activity: 'Full Marathon Flag Off', date: 'Jun 21, 2026', time: '4:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
     { activity: 'Half Marathon Flag Off', date: 'Jun 21, 2026', time: '5:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: '10K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6.00 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: '5K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6:20 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: '3K Fun Run Flag Off', date: 'Jun 21, 2026', time: '7:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
+    { activity: '10K Timed Run Flag Off', date: 'Jun 21, 2026', time: '5.30 AM', pill: 'pill-warn', pillText: 'Race Day' },
+    { activity: '5K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
+    { activity: '3K Fun Run Flag Off', date: 'Jun 21, 2026', time: '6:45 AM', pill: 'pill-warn', pillText: 'Race Day' },
     { activity: 'Prize Distribution & Closing Ceremony', date: 'Jun 21, 2026', time: '10:00 AM onwards', pill: 'pill-blue', pillText: 'Post Race' },
   ];
 
@@ -427,77 +421,20 @@ const Home = () => {
         </button>
       </nav>
 
-      {/* ── PHOTO HERO ── */}
-      <section className="photo-hero" style={{ backgroundImage: `url(${heroImg})` }}>
-        <div className="photo-hero-overlay" aria-hidden="true" />
-        <div className="photo-hero-confetti" aria-hidden="true">
-          {Array.from({ length: 40 }, (_, i) => (
-            <span
-              key={i}
-              className={`photo-hero-confetti-piece${i % 4 === 0 ? ' photo-hero-confetti-piece--round' : ''}`}
-              style={{
-                '--ch-left': `${(i * 19 + 3) % 94}%`,
-                '--ch-delay': `${(i * 0.13) % 4.5}s`,
-                '--ch-duration': `${7.5 + (i % 8) * 0.65}s`,
-                '--ch-hue': `${(i * 41) % 360}`,
-                '--ch-drift': `${-36 + (i % 9) * 9}px`,
-                '--ch-len': `${10 + (i % 6)}px`,
-              }}
-            />
-          ))}
-          {HERO_POPPER_DESIGNS.map((design, i) => (
-            <span
-              key={`hero-popper-${design}-${i}`}
-              className={`photo-hero-confetti-piece photo-hero-popper photo-hero-popper--${design}`}
-              style={{
-                '--ch-left': `${(i * 23 + 11) % 91}%`,
-                '--ch-delay': `${(i * 0.29) % 4.2}s`,
-                '--ch-duration': `${8.5 + (i % 6) * 0.55}s`,
-                '--ch-hue': `${(i * 47 + 18) % 360}`,
-                '--ch-drift': `${-32 + (i % 8) * 9}px`,
-                '--ch-len': `${13 + (i % 6)}px`,
-              }}
-            />
-          ))}
-        </div>
-        <div className="photo-hero-inner">
-          <div className="photo-hero-badge">June 21, 2026 &bull; Sivagiri, Erode</div>
-          <div className="photo-hero-title-block">
-            <span className="photo-hero-line1">Sivagiri</span>
-            <span className="photo-hero-line2">
-              <span className="ph-green">Marathon</span>{' '}
-              <span className="ph-gold">2026</span>
-            </span>
-          </div>
-          <p className="photo-hero-sub">
-            <span className="photo-hero-sub-line">Join the 4th edition of the most celebrated runner&apos;s race in Tamil Nadu.</span>
-            <span className="photo-hero-sub-line">Push your limits along the scenic routes of Sivagiri.</span>
-          </p>
-          <div className="photo-hero-ctas">
-            <a href="https://www.novarace.in/events/sivagiri-marathon-2026" className="btn photo-hero-btn-primary">Registration Closed </a>
-          </div>
-          {/* <div className="photo-hero-daytimer" aria-live="polite">
-            <span className="photo-hero-daytimer-label">Registration Opens at 12:00:00 AM</span>
-            <span className="photo-hero-daytimer-clock" title="Hours : Minutes : Seconds remaining today">
-              <span className="photo-hero-daytimer-seg">{untilDayEnd.h}</span>
-              <span className="photo-hero-daytimer-sep">:</span>
-              <span className="photo-hero-daytimer-seg">{untilDayEnd.m}</span>
-              <span className="photo-hero-daytimer-sep">:</span>
-              <span className="photo-hero-daytimer-seg">{untilDayEnd.s}</span>
-            </span>
-          </div> */}
-        </div>
-      </section>
+      {/* ── PHOTO HERO ── removed ── */}
+
+      {/* ── ROUTE MAPS (scrollable portrait cards · click to enlarge) ── */}
+      <RouteMaps />
 
    {/* ── FOUNDER STRIP ── */}
-      <div className="founder-strip">
+      {/* <div className="founder-strip">
         <div className="founder-strip-inner">
           <span className="founder-text">Sivagiri Runners</span>
           <div className="founder-divider"></div>
           <span className="founder-quote">"A race born from passion, built by the community, run for the love of the sport."</span>
           <span className="founder-attr">— Founders, Sivagiri Runners</span>
         </div>
-      </div>
+      </div> */}
 
       {/* ── 6. SCHEDULE ── */}
       <section className="section schedule-bg" id="schedule">
@@ -559,7 +496,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="expo-row-label">DATES</div>
-                  <div className="expo-row-val" style={{ fontWeight: 600 }}>June 20, 2026<br /><span style={{ fontWeight: 400, color: '#666', fontSize: '.85rem' }}>10:00 AM – 7:00 PM</span></div>
+                  <div className="expo-row-val" style={{ fontWeight: 600 }}>June 20, 2026<br /><span style={{ fontWeight: 400, color: '#666', fontSize: '.85rem' }}>10:00 AM – 6:00 PM</span></div>
                 </div>
               </div>
 
