@@ -361,16 +361,12 @@ const Home = () => {
   const prevPhoto = () => setLightboxIdx((i) => (i - 1 + racePhotos.length) % racePhotos.length);
   const nextPhoto = () => setLightboxIdx((i) => (i + 1) % racePhotos.length);
 
-  const scheduleRows = [
-    { activity: 'Early Bird Registration Closes', date: 'Apr 30, 2026', time: '11:59 PM', pill: 'pill-warn', pillText: 'Closing Soon' },
-    { activity: 'General Registration Closes', date: 'May 31, 2026', time: '11:59 PM', pill: 'pill-warn', pillText: 'Closed' },
-    { activity: 'Race Expo — Day (BIB Collection)', date: 'Jun 20, 2026', time: '10:00 AM – 6:00 PM', pill: 'pill-warn', pillText: 'Closed' },
-    { activity: 'Full Marathon Flag Off', date: 'Jun 21, 2026', time: '4:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: 'Half Marathon Flag Off', date: 'Jun 21, 2026', time: '5:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: '10K Timed Run Flag Off', date: 'Jun 21, 2026', time: '5.30 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: '5K Timed Run Flag Off', date: 'Jun 21, 2026', time: '6:00 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: '3K Fun Run Flag Off', date: 'Jun 21, 2026', time: '6:45 AM', pill: 'pill-warn', pillText: 'Race Day' },
-    { activity: 'Prize Distribution & Closing Ceremony', date: 'Jun 21, 2026', time: '10:00 AM onwards', pill: 'pill-blue', pillText: 'Post Race' },
+  const raceSchedule = [
+    { id: 'full', dist: '42.2', unit: 'KM', category: 'Full Marathon', assembly: '3:30 AM', flagOff: '4:00 AM', theme: 'race-sched-row--full' },
+    { id: 'half', dist: '21.1', unit: 'KM', category: 'Half Marathon', assembly: '4:30 AM', flagOff: '5:00 AM', theme: 'race-sched-row--half' },
+    { id: '10k', dist: '10', unit: 'KM', category: 'Road Race', assembly: '5:00 AM', flagOff: '5:30 AM', theme: 'race-sched-row--10k' },
+    { id: '5k', dist: '5', unit: 'KM', category: 'Timed Challenge', assembly: '5:30 AM', flagOff: '6:00 AM', theme: 'race-sched-row--5k' },
+    { id: '3k', dist: '3', unit: 'KM', category: 'Fun Run', assembly: '6:15 AM', flagOff: '6:45 AM', theme: 'race-sched-row--3k' },
   ];
 
   return (
@@ -435,35 +431,7 @@ const Home = () => {
           <span className="founder-attr">— Founders, Sivagiri Runners</span>
         </div>
       </div> */}
-
-      {/* ── 6. SCHEDULE ── */}
-      <section className="section schedule-bg" id="schedule">
-        <div className="container">
-          <div className="eyebrow">Plan Your Race Week</div>
-          <h2 className="section-title">Race <em>Schedule</em></h2>
-          <p className="section-sub">Key dates and timings to keep you race-ready and on track.</p>
-          <div className="schedule-table-wrap">
-            <table className="sched-table">
-              <thead>
-                <tr>
-                  <th style={{ fontSize: '0.85rem' }}>Activity</th><th style={{ fontSize: '0.85rem' }}>Date</th><th style={{ fontSize: '0.85rem' }}>Time</th><th style={{ fontSize: '0.85rem' }}>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {scheduleRows.map((row) => (
-                  <tr key={row.activity}>
-                    <td><span className="sched-activity">{row.activity}</span></td>
-                    <td className="sched-date">{row.date}</td>
-                    <td className="sched-time">{row.time}</td>
-                    <td><span className={`status-pill ${row.pill}`}>{row.pillText}</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
+    
       
       {/* ── 2b. RACE EXPO (moved up alongside Race Day Highlights) ── */}
       <section className="section expo-bg" id="expo">
@@ -542,6 +510,63 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+
+      {/* ── 6. SCHEDULE ── */}
+      <section className="section schedule-bg" id="schedule">
+        <div className="container">
+          <div className="schedule-header">
+            <div>
+              <div className="eyebrow">Plan Your Race Week</div>
+              <h2 className="section-title">Race <em>Schedule</em></h2>
+              <p className="section-sub">Assembly and flag-off timings for every category on race day.</p>
+            </div>
+            <div className="schedule-race-day-badge">
+              <span className="schedule-race-day-label">Race Day</span>
+              <span className="schedule-race-day-date">June 21, 2026</span>
+            </div>
+          </div>
+
+          <div className="race-schedule-cards">
+            {raceSchedule.map((row, i) => (
+              <article
+                key={row.id}
+                className={`race-sched-card ${row.theme}`}
+                style={{ '--row-index': i }}
+              >
+                <div className="race-sched-card-cat">
+                  <div className="race-sched-card-badge">
+                    <span className="race-sched-card-dist">{row.dist}</span>
+                    <span className="race-sched-card-unit">{row.unit}</span>
+                  </div>
+                  <span className="race-sched-card-name">{row.category}</span>
+                </div>
+
+                <div className="race-sched-card-times">
+                  <div className="race-sched-chip race-sched-chip--assembly">
+                    <span className="race-sched-chip-label">Assembly</span>
+                    <span className="race-sched-chip-val">{row.assembly}</span>
+                  </div>
+                  <div className="race-sched-chip-arrow" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </div>
+                  <div className="race-sched-chip race-sched-chip--flag">
+                    <span className="race-sched-chip-label">Flag Off</span>
+                    <span className="race-sched-chip-val">{row.flagOff}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      
+      
 
       {/* ── HOTELS & STAYS ── */}
       <HotelsStays />
