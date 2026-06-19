@@ -4,6 +4,7 @@ import HotelsStays from './HotelsStays';
 import BusTimings from './BusTimings';
 import Transports from './Transports';
 import RouteMaps from './RouteMaps';
+import BibCollectionPopup from './BibCollectionPopup';
 import marathonLogo from '../assets/sivagirirunners2026Finallogo.png';
 import runnersLogo from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
@@ -249,7 +250,7 @@ const Home = () => {
 
   useEffect(() => {
     const calc = () => {
-      const raceDate = new Date('2026-06-21T04:30:00+05:30');
+      const raceDate = new Date('2026-06-21T04:00:00+05:30');
       const diff = raceDate - new Date();
       if (diff <= 0) { setCountdown({ days: '00', hours: '00', mins: '00', secs: '00' }); return; }
       setCountdown({
@@ -371,6 +372,8 @@ const Home = () => {
 
   return (
     <>
+      <BibCollectionPopup />
+
       {/* ── ALERT BANNER ── */}
       {/* <div className="alert-banner">
         <div className="alert-banner-dot"></div>
@@ -391,10 +394,10 @@ const Home = () => {
         >
           <li><a href="#about">About</a></li>
           {/* <li><a href="#categories">Categories</a></li> */}
-          <li><a href="#team">Team</a></li>
+          {/* <li><a href="#team">Team</a></li> */}
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#expo">Expo</a></li>
-          <li><a href="#results">Prevoius Year Results</a></li>
+          {/* <li><a href="#results">Prevoius Year Results</a></li> */}
           {/* <li><a href="#prizes">Prizes</a></li> */}
           <li><a href="#hotels">Hotels</a></li>
           <li><a href="#buses">Buses</a></li>

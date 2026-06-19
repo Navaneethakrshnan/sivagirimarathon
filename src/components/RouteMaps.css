@@ -31,8 +31,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
-  max-width: 760px;
+  gap: 28px;
+  max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 44px;
@@ -75,6 +75,222 @@
   line-height: 1.55;
   color: var(--muted);
   max-width: 600px;
+  margin: 0;
+}
+
+/* ── Countdown ── */
+.routemaps-countdown {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 20px;
+  padding: 0;
+  background: linear-gradient(145deg, #1a3320 0%, #0f1f12 100%);
+  border: 1px solid rgba(74, 124, 47, 0.35);
+  border-radius: 28px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.routemaps-countdown::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74, 124, 47, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.routemaps-countdown-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 24px 40px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.routemaps-countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.92rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #b8e89a;
+}
+
+.routemaps-countdown-badge svg {
+  flex-shrink: 0;
+  opacity: 0.9;
+  width: 20px;
+  height: 20px;
+}
+
+.routemaps-countdown-target {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.01em;
+}
+
+.routemaps-countdown-display {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 44px 36px 48px;
+  gap: 0;
+}
+
+.routemaps-countdown-segment {
+  display: flex;
+  align-items: center;
+}
+
+.routemaps-countdown-colon {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.25);
+  line-height: 1;
+  padding: 0 14px 36px;
+  user-select: none;
+  animation: countdownColonBlink 1s step-end infinite;
+}
+
+@keyframes countdownColonBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
+
+.routemaps-countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  min-width: 130px;
+}
+
+.routemaps-countdown-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(110px, 16vw, 156px);
+  height: clamp(110px, 16vw, 156px);
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(3.2rem, 8vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 22px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.routemaps-countdown-unit-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .routemaps-countdown {
+    max-width: 100%;
+    border-radius: 22px;
+  }
+
+  .routemaps-countdown-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 24px 18px;
+  }
+
+  .routemaps-countdown-display {
+    padding: 32px 16px 36px;
+  }
+
+  .routemaps-countdown-unit {
+    min-width: 0;
+  }
+
+  .routemaps-countdown-num {
+    width: clamp(80px, 20vw, 120px);
+    height: clamp(80px, 20vw, 120px);
+    font-size: clamp(2.4rem, 8vw, 3.4rem);
+    border-radius: 18px;
+  }
+
+  .routemaps-countdown-colon {
+    padding: 0 6px 28px;
+  }
+}
+
+@media (max-width: 420px) {
+  .routemaps-countdown-num {
+    width: 76px;
+    height: 76px;
+    font-size: 2.2rem;
+  }
+
+  .routemaps-countdown-colon {
+    font-size: 2.2rem;
+    padding: 0 3px 22px;
+  }
+
+  .routemaps-countdown-unit-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* ── Maps intro ── */
+.routemaps-maps-intro {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+  margin: 48px auto 28px;
+  padding: 0 12px;
+}
+
+.routemaps-maps-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.2;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.routemaps-maps-title em {
+  font-style: normal;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.routemaps-maps-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  line-height: 1.55;
+  color: var(--muted);
   margin: 0;
 }
 

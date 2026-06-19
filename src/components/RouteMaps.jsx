@@ -34,9 +34,31 @@ const routeMaps = [
   },
 ];
 
+const RACE_FLAG_OFF = new Date('2026-06-21T04:00:00+05:30');
+
 const RouteMaps = () => {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
+  const [countdown, setCountdown] = useState({ days: '--', hours: '--', mins: '--', secs: '--' });
+
+  useEffect(() => {
+    const calc = () => {
+      const diff = RACE_FLAG_OFF - new Date();
+      if (diff <= 0) {
+        setCountdown({ days: '00', hours: '00', mins: '00', secs: '00' });
+        return;
+      }
+      setCountdown({
+        days: String(Math.floor(diff / 86400000)).padStart(2, '0'),
+        hours: String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0'),
+        mins: String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'),
+        secs: String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'),
+      });
+    };
+    calc();
+    const id = setInterval(calc, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   const openAt = (i) => { setIdx(i); setOpen(true); };
   const close = useCallback(() => setOpen(false), []);
@@ -74,7 +96,45 @@ const RouteMaps = () => {
           </h1>
           <p className="routemaps-sub">
             The 4th edition of Tamil Nadu&apos;s most celebrated runner&apos;s race.
-            Pick your distance and tap any card to view the full course.
+          </p>
+
+          <div className="routemaps-countdown" aria-live="polite">
+            <div className="routemaps-countdown-top">
+              <span className="routemaps-countdown-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                Race Day Countdown
+              </span>
+              <span className="routemaps-countdown-target">June 21, 2026 · 4:00 AM</span>
+            </div>
+
+            <div className="routemaps-countdown-display">
+              {[
+                { val: countdown.days, label: 'Days' },
+                { val: countdown.hours, label: 'Hrs' },
+                { val: countdown.mins, label: 'Min' },
+                { val: countdown.secs, label: 'Sec' },
+              ].map(({ val, label }, i) => (
+                <div className="routemaps-countdown-segment" key={label}>
+                  {i > 0 && <span className="routemaps-countdown-colon" aria-hidden="true">:</span>}
+                  <div className="routemaps-countdown-unit">
+                    <span className="routemaps-countdown-num">{val}</span>
+                    <span className="routemaps-countdown-unit-label">{label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="routemaps-maps-intro">
+          <h2 className="routemaps-maps-title">
+            Get Your <em>Preferred Maps</em>
+          </h2>
+          <p className="routemaps-maps-sub">
+            Choose your race distance below and tap any card to view the full route map.
           </p>
         </div>
 
