@@ -3,8 +3,9 @@ import './home.css';
 import HotelsStays from './HotelsStays';
 import BusTimings from './BusTimings';
 import Transports from './Transports';
-import RouteMaps from './RouteMaps';
-import BibCollectionPopup from './BibCollectionPopup';
+
+const RESULTS_2026_URL = 'https://results.novarace.in/results/sivagiri-marathon-2026/';
+const PHOTOS_2026_URL = 'https://photos.novarace.in/events/sivagiri-marathon-2026-6119/photos';
 import marathonLogo from '../assets/sivagirirunners2026Finallogo.png';
 import runnersLogo from '../assets/runners-logo.png';
 import novaraceLogo from '../assets/novarace-logo.png';
@@ -154,7 +155,6 @@ function normalizeResultsPayload(data) {
 }
 
 const Home = () => {
-  const [countdown, setCountdown] = useState({ days: '--', hours: '--', mins: '--', secs: '--' });
   const [untilDayEnd, setUntilDayEnd] = useState({ h: '00', m: '00', s: '00' });
   const [stickyVisible, setStickyVisible] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
@@ -247,23 +247,6 @@ const Home = () => {
     data.filter(r => r.Gender === gender).slice(0, 3);
 
   const medalLabel = ['🥇 1st', '🥈 2nd', '🥉 3rd'];
-
-  useEffect(() => {
-    const calc = () => {
-      const raceDate = new Date('2026-06-21T04:00:00+05:30');
-      const diff = raceDate - new Date();
-      if (diff <= 0) { setCountdown({ days: '00', hours: '00', mins: '00', secs: '00' }); return; }
-      setCountdown({
-        days: String(Math.floor(diff / 86400000)).padStart(2, '0'),
-        hours: String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0'),
-        mins: String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'),
-        secs: String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'),
-      });
-    };
-    calc();
-    const id = setInterval(calc, 1000);
-    return () => clearInterval(id);
-  }, []);
 
   useEffect(() => {
     const tick = () => {
@@ -372,8 +355,6 @@ const Home = () => {
 
   return (
     <>
-      <BibCollectionPopup />
-
       {/* ── ALERT BANNER ── */}
       {/* <div className="alert-banner">
         <div className="alert-banner-dot"></div>
@@ -396,7 +377,8 @@ const Home = () => {
           {/* <li><a href="#categories">Categories</a></li> */}
           {/* <li><a href="#team">Team</a></li> */}
           <li><a href="#schedule">Schedule</a></li>
-          <li><a href="#expo">Expo</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href={PHOTOS_2026_URL} target="_blank" rel="noopener noreferrer">Photos</a></li>
           {/* <li><a href="#results">Prevoius Year Results</a></li> */}
           {/* <li><a href="#prizes">Prizes</a></li> */}
           <li><a href="#hotels">Hotels</a></li>
@@ -422,9 +404,6 @@ const Home = () => {
 
       {/* ── PHOTO HERO ── removed ── */}
 
-      {/* ── ROUTE MAPS (scrollable portrait cards · click to enlarge) ── */}
-      <RouteMaps />
-
    {/* ── FOUNDER STRIP ── */}
       {/* <div className="founder-strip">
         <div className="founder-strip-inner">
@@ -436,84 +415,67 @@ const Home = () => {
       </div> */}
     
       
-      {/* ── 2b. RACE EXPO (moved up alongside Race Day Highlights) ── */}
-      <section className="section expo-bg" id="expo">
-        <div className="container" style={{ position: 'relative' }}>
-          <div className="eyebrow" style={{ color: '#b9ccaf', letterSpacing: '0.15em', fontWeight: 700 }}>| BIB COLLECTION</div>
-          <h2 className="section-title">Race <em>Expo</em></h2>
-          <p className="section-sub" style={{ maxWidth: '440px', fontSize: '.95rem', color: '#4a4a4a', lineHeight: 1.6, marginTop: '20px' }}>
-            Collect your race kit, meet fellow runners, and experience the pre-race buzz at the Sivagiri Marathon Expo.
-          </p>
+      {/* ── THANK YOU · 2026 RESULTS & PHOTOS ── */}
+      <section className="section thankyou-bg" id="results">
+        <div className="container">
+          <div className="thankyou-inner">
+            <div className="thankyou-badge">Sivagiri Marathon 2026</div>
+            <h2 className="section-title thankyou-title">
+              Thank You for <em>Participating!</em>
+            </h2>
+            <p className="section-sub thankyou-sub">
+              Every stride mattered. Relive your race — view official results and download your finisher photos below.
+            </p>
 
-          <div className="expo-grid">
-            {/* Left Card: Light Theme */}
-            <div className="expo-card expo-card-light">
-              <div className="expo-card-title">Expo <span className="expo-venue-hl">Venue</span> &amp; Dates</div>
-
-              <div className="expo-row">
-                <div className="expo-icon-box">
-
-                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <div className="thankyou-cards">
+              <a
+                href={RESULTS_2026_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="thankyou-card thankyou-card--results"
+              >
+                <div className="thankyou-card-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                    <path d="M4 22h16" />
+                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22" />
+                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22" />
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                  </svg>
                 </div>
-                <div>
-                  <div className="expo-row-label">VENUE</div>
-                  <div className="expo-row-val" style={{ fontWeight: 600 }}>Kongu Vellalar Wedding Hall,<br />Sivagiri Erode</div>
+                <div className="thankyou-card-body">
+                  <span className="thankyou-card-label">Official Results</span>
+                  <span className="thankyou-card-title">2026 Race Results</span>
+                  <span className="thankyou-card-desc">Search by name or BIB · all categories</span>
                 </div>
-              </div>
+                <span className="thankyou-card-arrow" aria-hidden="true">→</span>
+              </a>
 
-              <div className="expo-row">
-                <div className="expo-icon-box">
-                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <a
+                href={PHOTOS_2026_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="thankyou-card thankyou-card--photos"
+              >
+                <div className="thankyou-card-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                  </svg>
                 </div>
-                <div>
-                  <div className="expo-row-label">DATES</div>
-                  <div className="expo-row-val" style={{ fontWeight: 600 }}>June 20, 2026<br /><span style={{ fontWeight: 400, color: '#666', fontSize: '.85rem' }}>10:00 AM – 6:00 PM</span></div>
+                <div className="thankyou-card-body">
+                  <span className="thankyou-card-label">Race Photos</span>
+                  <span className="thankyou-card-title">2026 Finisher Photos</span>
+                  <span className="thankyou-card-desc">Free photos · searchable by BIB number</span>
                 </div>
-              </div>
-
-              <div className="expo-important-note">
-                <div className="expo-note-icon">
-                  <span style={{ color: '#fff', fontSize: '10px', fontWeight: 'bold' }}>i</span>
-                </div>
-                <div className="expo-note-content">
-                  <div className="expo-note-title">IMPORTANT NOTE</div>
-                  <div className="expo-note-text">
-                    BIB must be collected at the Expo. No race-day BIB collection. Full Marathon participants must collect by 6:00 PM on June 20.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Card: Dark Theme */}
-            <div className="expo-card expo-card-dark">
-              <div className="expo-dark-top">
-                <div className="expo-card-title expo-dark-title">Documents <em>Required</em></div>
-                <div className="expo-folder-icon">
-                  <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                </div>
-              </div>
-
-              <div className="expo-divider">
-                <span>BRING THE FOLLOWING TO COLLECT YOUR BIB</span>
-              </div>
-
-              <ul className="expo-docs-dark">
-                <li><span>Registration confirmation email / SMS / WhatsApp</span></li>
-                <li><span>Valid government photo ID (Aadhaar / Driving Licence / Passport)</span></li>
-                <li><span>Medical fitness certificate (Full Marathon &amp; Half Marathon)</span></li>
-                <li><span>Signed indemnity form <span className="muted-text">(available at expo for 42.2KM runners)</span></span></li>
-                <li><span>Proxy authorization letter + your photo ID copy <span className="muted-text">(if collecting for another runner)</span></span></li>
-              </ul>
-
-              <div className="expo-alert-banner">
-                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                <span>BIBs will not be distributed on race morning – plan ahead!</span>
-              </div>
+                <span className="thankyou-card-arrow" aria-hidden="true">→</span>
+              </a>
             </div>
           </div>
         </div>
       </section>
-
 
       {/* ── 6. SCHEDULE ── */}
       <section className="section schedule-bg" id="schedule">
@@ -1118,8 +1080,9 @@ const Home = () => {
 
     
 
-      {/* ── 11. RESULTS ── */}
-      <section className="section results-bg" id="results">
+      {/* ── 11. PAST RESULTS (hidden — see thank-you section for 2026) ── */}
+      {false && (
+      <section className="section results-bg" id="past-results">
         <div className="container">
           <div className="eyebrow">Sivagiri Marathon</div>
           <h2 className="section-title">Race <em>Results</em></h2>
@@ -1292,6 +1255,7 @@ const Home = () => {
           )}
         </div>
       </section>
+      )}
 
 
        
@@ -1299,6 +1263,16 @@ const Home = () => {
       {/* ── 12. GALLERY ── */}
       <section className="section" id="gallery">
         <div className="container">
+          <div className="gallery-2026-banner">
+            <div>
+              <div className="gallery-2026-label">Sivagiri Marathon 2026</div>
+              <p className="gallery-2026-text">Official race photos are live — search by your BIB number.</p>
+            </div>
+            <a href={PHOTOS_2026_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              View 2026 Photos →
+            </a>
+          </div>
+
           <div className="sec-header">
             <div>
               <div className="eyebrow">Past Editions</div>
@@ -1545,7 +1519,7 @@ const Home = () => {
                 {/* <li><a href="#categories">Categories</a></li> */}
                 <li><a href="#schedule">Schedule</a></li>
                 <li><a href="#map">Course Map</a></li>
-                <li><a href="#expo">Race Expo</a></li>
+                <li><a href="#results">Results</a></li>
               </ul>
             </div>
             <div>
@@ -1563,8 +1537,8 @@ const Home = () => {
               <ul className="footer-links">
                 <li><a href="tel:+919876500000">+91 9788887888</a></li>
                 <li><a href="#">sivagirimarathon@gmail.com</a></li>
-                <li><a href="https://photos.novarace.in/events/sivagiri-marathon-2025-5663/photos">Finisher Photos</a></li>
-                <li><a href="https://www.novarace.in/results/sivagiri-marathon-2025">2025 Results</a></li>
+                <li><a href={PHOTOS_2026_URL} target="_blank" rel="noopener noreferrer">2026 Finisher Photos</a></li>
+                <li><a href={RESULTS_2026_URL} target="_blank" rel="noopener noreferrer">2026 Results</a></li>
               </ul>
             </div>
           </div>
